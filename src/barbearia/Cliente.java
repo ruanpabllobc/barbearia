@@ -1,4 +1,4 @@
-package src.restaurante;
+package src.barbearia;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

@@ -1,32 +1,32 @@
-package src.restaurante;
+package src.barbearia;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import src.db.Banco;
 
-public class Restaurante extends Usuario {
+public class Barbearia extends Usuario {
 
-    private String endereco;
+    private String endereco; //unidade
     private int anoAbertura;
     private String cnpj;
     
-    public Restaurante(String nome, String senha, String endereco,String email, int anoAbertura, String cnpj) {
+    public Barbearia(String nome, String senha, String endereco, String email, int anoAbertura, String cnpj) {
         super(nome, senha,email);
         this.endereco = endereco;
         this.anoAbertura = anoAbertura;
         this.cnpj = cnpj;
     }
     
-    public Restaurante(){ //Construtor auxiliar do Main
+    public Barbearia(){ //Construtor auxiliar do Main
     }
     
-    public void cadastrarRestaurante(Banco db) {
-        String query = String.format("INSERT INTO Restaurante (nome, endereco, senha, email, ano_abertura, cnpj) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(),getCnpj()); //Cadastra um restaurante preenchendo os valores da coluna Restaurante pelo metodo Get
+    public void cadastrarBarbearia(Banco db) {
+        String query = String.format("INSERT INTO Barbearia (nome, endereco, senha, email, ano_abertura, cnpj) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(),getCnpj()); //Cadastra uma barbearia preenchendo os valores da coluna Barbearia pelo metodo Get
         db.queryUpdate(query); //Atualiza no banco
     }
 
-    public void pesquisarRestaurante(Banco db, String cnpj) throws SQLException {
-        String query = String.format("SELECT * FROM Restaurante WHERE cnpj = '%s'", cnpj); //Busca um restaurante pelo CNPJ
+    public void pesquisarBarbearia(Banco db, String cnpj) throws SQLException {
+        String query = String.format("SELECT * FROM Barbearia WHERE cnpj = '%s'", cnpj); //Busca um restaurante pelo CNPJ
         ResultSet rs = db.querySearch(query); //Recebe o resultado da pesquisa
         
         setNome(rs.getString("nome")); //Atualiza os valores e imprime
@@ -37,8 +37,8 @@ public class Restaurante extends Usuario {
         setCnpj(rs.getString("cnpj"));
     }
 
-    public void listarRestaurantes(Banco db) throws SQLException {
-        String query = "SELECT * FROM Restaurante"; //Seleciona todos os itens da tabela Restaurante
+    public void listarBarbearias(Banco db) throws SQLException {
+        String query = "SELECT * FROM Barbearia"; //Seleciona todos os itens da tabela Barbearia
         ResultSet rs = db.querySearch(query); //Recebe o resultado
 
         while (rs.next()) { //Próxima linha
@@ -52,13 +52,13 @@ public class Restaurante extends Usuario {
         }
     }
 
-    public void editarRestaurante(Banco db) {
-        String query = String.format("UPDATE Restaurante SET nome = '%s', endereco = '%s', senha = '%s', email = '%s', ano_abertura = '%s' WHERE cnpj = '%s'", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(), getCnpj()); //Preenche os itens da tabela Restaurante com o metodo Get de cada atributo
+    public void editarBarbearia(Banco db) {
+        String query = String.format("UPDATE Barbearia SET nome = '%s', endereco = '%s', senha = '%s', email = '%s', ano_abertura = '%s' WHERE cnpj = '%s'", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(), getCnpj()); //Preenche os itens da tabela Barbearia com o metodo Get de cada atributo
         db.queryUpdate(query); //Atualiza
     }
 
-    public void removerRestaurante(Banco db) {
-        String query = String.format("DELETE FROM Restaurante WHERE cnpj = '%s'", getCnpj()); //Remove um restaurante encontrado na tabela atraves do seu CNPJ
+    public void removerBarbearia(Banco db) {
+        String query = String.format("DELETE FROM Barbearia WHERE cnpj = '%s'", getCnpj()); //Remove uma Barbearia encontrado na tabela atraves do seu CNPJ
         db.queryUpdate(query);
     }
 
@@ -90,6 +90,6 @@ public class Restaurante extends Usuario {
     //To String
     @Override
     public String toString() {
-        return "Restaurante {nome=" + getNome() + ", endereco=" + getEndereco() + ", email=" + getEmail() + ", anoAbertura=" + getAnoAbertura() + ", Cnpj=" +  getCnpj() + "}";
+        return "Barbearia {nome=" + getNome() + ", endereco=" + getEndereco() + ", Cnpj=" +  getCnpj() + "}";
     }
 }

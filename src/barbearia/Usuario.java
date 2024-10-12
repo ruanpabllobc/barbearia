@@ -1,4 +1,4 @@
-package src.restaurante;
+package src.barbearia;
 
 public class Usuario {
     private String nome;
@@ -19,7 +19,7 @@ public class Usuario {
         System.out.println("\nLogin realizado com sucesso!");
         return true;
         } else {
-        System.out.println("\nSenha incorreta");
+        System.out.println("\nSenha incorreta!");
         return false;
         }
     }
