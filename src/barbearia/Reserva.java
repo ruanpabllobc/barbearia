@@ -68,10 +68,10 @@ public class Reserva {
             String datast = rs.getString("data_reserva");
             Date data = Date.valueOf(datast);
             setDataReserva(data);
-            setValorTotal(rs.getFloat("valor"));
+            setValorTotal(rs.getFloat("valor_total"));
             setMetodoPagamento(rs.getString("metodo_pagamento"));
-            setIdBarbearia(rs.getString("restaurante"));
-            setIdServico(rs.getString("numero_mesa"));
+            setIdBarbearia(rs.getString("barbearia"));
+            setIdServico(rs.getString("nome_servico"));
             setIdCliente(rs.getString("cliente"));
             System.out.println(toString()); //Imprime os dados da linha
             }

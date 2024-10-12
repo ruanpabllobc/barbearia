@@ -53,7 +53,7 @@ public class Barbearia extends Usuario {
     }
 
     public void editarBarbearia(Banco db) {
-        String query = String.format("UPDATE Barbearia SET nome = '%s', endereco = '%s', senha = '%s', email = '%s', ano_abertura = '%s' WHERE cnpj = '%s'", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(), getCnpj()); //Preenche os itens da tabela Barbearia com o metodo Get de cada atributo
+        String query = String.format("UPDATE Barbearia SET nome = '%s', endereco = '%s', senha = '%s', email = '%s', ano_abertura = '%d' WHERE cnpj = '%s'", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(), getCnpj()); //Preenche os itens da tabela Barbearia com o metodo Get de cada atributo
         db.queryUpdate(query); //Atualiza
     }
 

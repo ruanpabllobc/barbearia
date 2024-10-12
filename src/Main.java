@@ -88,6 +88,8 @@ public class Main {
                                     while (Reserva.pesquisarReservaNoDia(db, data, cnpj)) {
                                         System.out.println("Mesa ocupada para a data especificada. Digite outra data no formato AAAA-MM-DD: ");
                                         dataString = scanner.nextLine();
+                                        data = Date.valueOf(dataString);
+                                        reserva.setDataReserva(data);
                                     }
                                     System.out.println("Mesa disponível para a data!");
                                     reserva.setIdCliente(cliente.getCpf());
@@ -120,6 +122,8 @@ public class Main {
                                     while (Reserva.pesquisarReservaNoDia(db, data, cnpj)) {
                                         System.out.println("Mesa ocupada para a data especificada. Digite outra data no formato AAAA-MM-DD: ");
                                         dataString = scanner.nextLine();
+                                        data = Date.valueOf(dataString);
+                                        reserva.setDataReserva(data);
                                     }
                                     System.out.println("Mesa disponível para a data!");
                                     reserva.setIdCliente(cliente.getCpf());
@@ -266,6 +270,8 @@ public class Main {
                                     while (Reserva.pesquisarReservaNoDia(db, data, barbearia.getCnpj())) {
                                         System.out.println("Mesa ocupada para a data especificada. Digite outra data no formato AAAA-MM-DD: ");
                                         dataString = scanner.nextLine();
+                                        data = Date.valueOf(dataString);
+                                        reserva.setDataReserva(data);
                                     }
                                     System.out.println("Mesa disponível para a data!");
                                     reserva.setIdServico(nomeServico);
@@ -295,6 +301,8 @@ public class Main {
                                     while (Reserva.pesquisarReservaNoDia(db, data, barbearia.getCnpj())) {
                                         System.out.println("Mesa ocupada para a data especificada. Digite outra data no formato AAAA-MM-DD: ");
                                         dataString = scanner.nextLine();
+                                        data = Date.valueOf(dataString);
+                                        reserva.setDataReserva(data);
                                     }
                                     System.out.println("Mesa disponível para a data!");
                                     reserva.setIdServico(nomeServico);

@@ -20,7 +20,7 @@ public class Servico {
     }
 
     public void cadastrarServico(Banco db) {
-        String query = String.format("INSERT INTO Servico (nome_servico, valor_servico, barbearia, ) VALUES ('%s', '%f', '%s')", // Formato da tabela Servico no banco
+        String query = String.format("INSERT INTO Servico (nome_servico, valor_servico, barbearia) VALUES ('%s', '%.2f', '%s')", // Formato da tabela Servico no banco
         getNomeServico(), getValorServico(), getIdBarbearia());
         db.queryUpdate(query); //Metodo da classe banco para inserir ou atualizar dados na tabela
     }
