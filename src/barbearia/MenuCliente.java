@@ -15,9 +15,9 @@ public class MenuCliente {
     private Reserva reserva;
 
     // Construtor para inicializar os objetos
-    public MenuCliente() {
+    public MenuCliente(Banco db) {
         this.scanner = new Scanner(System.in);
-        this.db = new Banco();
+        this.db = db;
         this.cliente = new Cliente();
         this.barbearia = new Barbearia();
         this.servico = new Servico();
@@ -26,9 +26,20 @@ public class MenuCliente {
 
     // Método que exibe o menu e trata as opções
     public void exibirMenu() throws SQLException {
-        String nome, email, senha, telefone, cnpj, pagamento, servicos;
+
+        String nome, email, senha, telefone, cnpj, pagamento, servicos, cpf;
         Date dataHora;
         int opcao, id;
+
+        System.out.println("Digite o seu CPF: ");
+        cpf = scanner.nextLine();
+        cliente.setCpf(cpf);
+        cliente.pesquisarCliente(db, cpf);
+        System.out.println("Digite a sua senha: ");
+        senha = scanner.nextLine();
+        if (cliente.usuarioLogin(senha)) {
+            System.out.println("Senha correta!");
+        }
 
         do {
             System.out.println("------------------------");

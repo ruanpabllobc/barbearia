@@ -15,9 +15,9 @@ public class MenuBarbearia {
     private Reserva reserva;
 
     // Construtor para inicializar os objetos
-    public MenuBarbearia() {
+    public MenuBarbearia(Banco db) {
         this.scanner = new Scanner(System.in);
-        this.db = new Banco();
+        this.db = db;
         this.cliente = new Cliente();
         this.barbearia = new Barbearia();
         this.servico = new Servico();
@@ -26,10 +26,20 @@ public class MenuBarbearia {
 
     // Método que exibe o menu e trata as opções
     public void exibirMenu() throws SQLException {
-        String nome, email, senha, endereco, pagamento, servicos;
+        String cnpj, nome, email, senha, endereco, pagamento, servicos;
         float valor;
         Date dataHora;
         int opcao, id;
+
+        System.out.println("Digite o seu CNPJ: ");
+        cnpj = scanner.nextLine();
+        barbearia.setCnpj(cnpj);
+        barbearia.pesquisarBarbearia(db, cnpj);
+        System.out.println("Digite a sua senha:");
+        senha = scanner.nextLine();
+        if (barbearia.usuarioLogin(senha)) {
+            System.out.println("Senha correta!");
+        }
 
         do {
             System.out.println("------------------------");
@@ -138,6 +148,7 @@ public class MenuBarbearia {
                     System.out.println("Informe o valor: ");
                     valor = scanner.nextFloat();
                     scanner.nextLine();
+                    barbearia.setCnpj(barbearia.getCnpj());
                     servico.setNomeServico(nome);
                     servico.setValorServico(valor);
                     servico.setIdBarbearia(barbearia.getCnpj());

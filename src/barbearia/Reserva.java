@@ -10,14 +10,12 @@ public class Reserva {
     private int id;
     private Date dataReserva;
     private String metodoPagamento;
-    private float valorTotal;
     private String idBarbearia;
     private String idCliente;
     private String idServico;
 
-    public Reserva(Date dataReserva, float valorTotal, String idBarbearia, String idCliente, String idServico) {
+    public Reserva(Date dataReserva, String idBarbearia, String idCliente, String idServico) {
         this.dataReserva = dataReserva;
-        this.valorTotal = valorTotal;
         this.idBarbearia = idBarbearia;
         this.idCliente = idCliente;
         this.idServico = idServico;
@@ -27,8 +25,8 @@ public class Reserva {
     }
 
     public void cadastrarReserva(Banco db) {
-        String query = String.format("INSERT INTO Reserva (data_reserva, metodo_pagamento, valor_total, barbearia, cliente, nome_servico) VALUES ('%tF', '%s', '%.2f', '%s', '%s', '%s')", 
-        getDataReserva(), getMetodoPagamento(), getValorTotal(), getIdBarbearia(), getIdCliente(), getIdServico()); //Preenche cada campo da tabela Reserva atraves do metodo Get
+        String query = String.format("INSERT INTO Reserva (data_reserva, metodo_pagamento, barbearia, cliente, nome_servico) VALUES ('%tF', '%s', '%s', '%s', '%s')", 
+        getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getIdServico()); //Preenche cada campo da tabela Reserva atraves do metodo Get
         db.queryUpdate(query); //Realiza inserção na tabela
     }
 
@@ -41,7 +39,6 @@ public class Reserva {
         Date data = Date.valueOf(datast);
         setDataReserva(data);
         setMetodoPagamento(rs.getString("metodo_pagamento"));
-        setValorTotal(rs.getFloat("valor_total"));
         setIdBarbearia(rs.getString("barbearia"));
         setIdCliente(rs.getString("cliente"));
         setIdServico(rs.getString("nome_servico"));
@@ -68,7 +65,6 @@ public class Reserva {
             String datast = rs.getString("data_reserva");
             Date data = Date.valueOf(datast);
             setDataReserva(data);
-            setValorTotal(rs.getFloat("valor_total"));
             setMetodoPagamento(rs.getString("metodo_pagamento"));
             setIdBarbearia(rs.getString("barbearia"));
             setIdServico(rs.getString("nome_servico"));
@@ -78,7 +74,7 @@ public class Reserva {
     }
 
     public void editarReserva(Banco db) {
-        String query = String.format("UPDATE Reserva SET nome_servico = '%s', data_reserva = '%s', valor_total = '%.2f', metodo_pagamento = '%s', barbearia = '%s', cliente = '%s' WHERE id_reserva = %d", getIdServico(), getDataReserva(), getValorTotal(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getId()); //Preenche cada campo da tabela com o metodo Get
+        String query = String.format("UPDATE Reserva SET nome_servico = '%s', data_reserva = '%s', metodo_pagamento = '%s', barbearia = '%s', cliente = '%s' WHERE id_reserva = %d", getIdServico(), getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getId()); //Preenche cada campo da tabela com o metodo Get
         db.queryUpdate(query); //Atualiza a tabela
     }
 
@@ -101,14 +97,6 @@ public class Reserva {
 
     public void setDataReserva(Date dataReserva) {
         this.dataReserva = dataReserva;
-    }
-
-    public float getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(float valorTotal) {
-        this.valorTotal = valorTotal;
     }
 
     public String getIdBarbearia() {
@@ -146,8 +134,6 @@ public class Reserva {
     @Override
     public String toString() {
         return "Reserva [id=" + id + ", dataReserva=" + dataReserva + ", metodoPagamento=" + metodoPagamento
-                + ", valorTotal=" + valorTotal + ", idBarbearia=" + idBarbearia + ", idCliente=" + idCliente
-                + ", idServico=" + idServico + "]";
+                + ", idBarbearia=" + idBarbearia + ", idCliente=" + idCliente + ", idServico=" + idServico + "]";
     }
-
 }
