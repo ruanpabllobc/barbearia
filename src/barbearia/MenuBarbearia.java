@@ -26,7 +26,7 @@ public class MenuBarbearia {
 
     // Método que exibe o menu e trata as opções
     public void exibirMenu() throws SQLException {
-        String cnpj, nome, email, senha, endereco, pagamento, servicos;
+        String cnpj, cpf, nome, email, senha, endereco, pagamento, servicos;
         float valor;
         Date dataHora;
         int opcao, id;
@@ -81,6 +81,9 @@ public class MenuBarbearia {
                     break;
                 case 2:
                     System.out.println("Opção 2 selecionada: Nova reserva");
+                    cliente.listarClientes(db);
+                    System.out.println("Digite o CPF do cliente: ");
+                    cpf = scanner.nextLine();
                     dataHora = converterData(scanner);
                     while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj())) {
                         System.out.println("Data ocupada. Tente outra data.");
@@ -92,6 +95,7 @@ public class MenuBarbearia {
                     servico.listarServicos(db, barbearia.getCnpj());
                     System.out.println("Digite o nome do serviço: ");
                     servicos = scanner.nextLine();
+                    cliente.setCpf(cpf);
                     reserva.setIdCliente(cliente.getCpf());
                     reserva.setDataReserva(dataHora);
                     reserva.setMetodoPagamento(pagamento);
