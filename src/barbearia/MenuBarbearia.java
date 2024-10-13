@@ -25,22 +25,21 @@ public class MenuBarbearia {
     }
 
     // Método que exibe o menu e trata as opções
-    public void exibirMenu() throws SQLException {
-        String cnpj, cpf, nome, email, senha, endereco, pagamento, servicos;
-        float valor;
-        Date dataHora;
-        int opcao, id;
+public void exibirMenu() throws SQLException {
+    String cnpj, cpf, nome, email, senha, endereco, pagamento, servicos;
+    float valor;
+    Date dataHora;
+    int opcao, id;
 
-        System.out.println("Digite o seu CNPJ: ");
-        cnpj = scanner.nextLine();
-        barbearia.setCnpj(cnpj);
-        barbearia.pesquisarBarbearia(db, cnpj);
-        System.out.println("Digite a sua senha:");
-        senha = scanner.nextLine();
-        if (barbearia.usuarioLogin(senha)) {
-            System.out.println("Senha correta!");
-        }
-
+    System.out.println("Digite o seu CNPJ: ");
+    cnpj = scanner.nextLine();
+    barbearia.setCnpj(cnpj);
+    barbearia.pesquisarBarbearia(db, cnpj);
+    System.out.println("Digite a sua senha:");
+    senha = scanner.nextLine();
+    
+    if (barbearia.usuarioLogin(senha)) {
+        System.out.println("Senha correta!");
         do {
             System.out.println("------------------------");
             System.out.println("1. ATUALIZAR PERFIL");
@@ -70,7 +69,7 @@ public class MenuBarbearia {
                     email = scanner.nextLine();
                     System.out.println("Digite a nova senha: ");
                     senha = scanner.nextLine();
-                    System.out.println("Digite a nova endereço: ");
+                    System.out.println("Digite o novo endereço: ");
                     endereco = scanner.nextLine();
                     barbearia.setNome(nome);
                     barbearia.setEmail(email);
@@ -90,7 +89,7 @@ public class MenuBarbearia {
                         dataHora = converterData(scanner);
                     }
                     System.out.println("Data disponível para a reserva!");
-                    System.out.println("Metodo de pagamento: Pix ou Cartão");
+                    System.out.println("Método de pagamento: Pix ou Cartão");
                     pagamento = scanner.nextLine();
                     servico.listarServicos(db, barbearia.getCnpj());
                     System.out.println("Digite o nome do serviço: ");
@@ -112,7 +111,7 @@ public class MenuBarbearia {
                         dataHora = converterData(scanner);
                     }
                     System.out.println("Data disponível para a reserva!");
-                    System.out.println("Metodo de pagamento: Pix ou Cartão");
+                    System.out.println("Método de pagamento: Pix ou Cartão");
                     pagamento = scanner.nextLine();
                     servico.listarServicos(db, barbearia.getCnpj());
                     System.out.println("Digite o nome do serviço: ");
@@ -124,6 +123,7 @@ public class MenuBarbearia {
                     reserva.setIdServico(servicos);
                     reserva.cadastrarReserva(db);
                     System.out.println("Reserva cadastrada");
+                    break; // Adicionado break aqui
                 case 4:
                     System.out.println("Opção 4 selecionada: Buscar reserva");
                     System.out.println("Informe o ID da reserva: ");
@@ -186,18 +186,21 @@ public class MenuBarbearia {
                     servico.setNomeServico(nome);
                     servico.removerServico(db, barbearia.getCnpj());
                     System.out.println("Serviço removido");
+                    break;
                 case 11:
                     System.out.println("Opção 11 selecionada: Remover perfil");
                     barbearia.removerBarbearia(db);
                     System.out.println("APAGANDO DADOS...");
                     System.exit(0);
+                    break;
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
         } while (opcao != 0);
     }
+}
 
-    // Método auxiliar para converter a data
+
     private static Date converterData(Scanner scanner) {
         System.out.println("Informe a data no formato AAAA-MM-DD: ");
         String dataString = scanner.nextLine();
