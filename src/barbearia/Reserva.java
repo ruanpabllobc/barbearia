@@ -34,15 +34,20 @@ public class Reserva {
         String query = String.format("SELECT * FROM Reserva WHERE id_reserva = %d", reservaId); //Busca a reserva na tavbela atraves do seu ID
         ResultSet rs = db.querySearch(query); //O resultado da busca é armazenado em rs (resultado da consulta)
     
-        setId(rs.getInt("id_reserva")); //Atualiza cada valor de cada colunana tabela
-        String datast = rs.getString("data_reserva");
-        Date data = Date.valueOf(datast);
-        setDataReserva(data);
-        setMetodoPagamento(rs.getString("metodo_pagamento"));
-        setIdBarbearia(rs.getString("barbearia"));
-        setIdCliente(rs.getString("cliente"));
-        setIdServico(rs.getString("nome_servico"));
-        System.out.println(toString());
+        if (rs.next()) { // Verifica se há uma linha no ResultSet
+            setId(rs.getInt("id_reserva")); // Atualiza cada valor de cada coluna da tabela
+            String datast = rs.getString("data_reserva");
+            Date data = Date.valueOf(datast);
+            setDataReserva(data);
+            setMetodoPagamento(rs.getString("metodo_pagamento"));
+            setIdBarbearia(rs.getString("barbearia"));
+            setIdCliente(rs.getString("cliente"));
+            setIdServico(rs.getString("nome_servico"));
+            System.out.println(toString());
+        } else {
+            // Mensagem de erro caso não encontre uma reserva com o ID fornecido
+            System.out.println("Nenhuma reserva encontrada com o ID " + reservaId);
+        }
     }
 
     public static boolean pesquisarReservaNoDia(Banco db, Date data, String barbeariaId) throws SQLException {

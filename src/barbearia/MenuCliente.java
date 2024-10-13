@@ -43,9 +43,10 @@ public class MenuCliente {
                 System.out.println("------------------------");
                 System.out.println("1. ATUALIZAR PERFIL");
                 System.out.println("2. NOVA RESERVA");
-                System.out.println("3. BUSCAR RESERVA");
-                System.out.println("4. CANCELAR RESERVA");
-                System.out.println("5. DELETAR PERFIL");
+                System.out.println("3. BUSCAR POR RESERVAS");
+                System.out.println("4. MINHAS RESERVAS");
+                System.out.println("5. CANCELAR RESERVA");
+                System.out.println("6. DELETAR PERFIL");
                 System.out.println("0. SAIR");
                 System.out.println("------------------------");
     
@@ -103,6 +104,10 @@ public class MenuCliente {
                         reserva.pesquisarReserva(db, id);
                         break;
                     case 4:
+                        System.out.println("Opção 4 selecionada: Minhas Reservas");
+                        reserva.listarReservas(db);
+                        break;
+                    case 5:
                         System.out.println("Opção 3 selecionada: Cancelar reserva");
                         reserva.listarReservas(db);
                         System.out.println("Informe o ID da sua reserva: ");
@@ -112,7 +117,7 @@ public class MenuCliente {
                         reserva.removerReserva(db);
                         System.out.println("Reserva cancelada");
                         break;
-                    case 5:
+                    case 6:
                         System.out.println("Opção 5 selecionada: Remover perfil");
                         cliente.removerCliente(db);
                         System.out.println("APAGANDO DADOS...");
