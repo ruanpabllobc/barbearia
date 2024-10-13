@@ -4,6 +4,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import src.barbearia.Barbearia;
 import src.barbearia.Cliente;
+import src.barbearia.MenuCliente;
 import src.barbearia.Reserva;
 import src.barbearia.Servico;
 import src.db.Banco;
@@ -17,9 +18,10 @@ public class Main {
         Barbearia barbearia = new Barbearia();
         Servico servico = new Servico();
         Reserva reserva = new Reserva();
+        MenuCliente menuCliente = new MenuCliente();
         String nome, email, senha, telefone, dataString, metodoPagamento, cnpj, cpf, nomeServico, novoNomeServico, endereco;
         int opcao, id, anoAbertura;
-        float valorServico, novoValorServico;
+        float valorServico, novoValorServico, duracaoServico, novaDuracaoServiço;
         Date data;
 
         do{
@@ -44,124 +46,7 @@ public class Main {
                     System.out.println("Digite a sua senha: ");
                     senha = scanner.nextLine();
                     if (cliente.usuarioLogin(senha)){
-                        while (true){
-                            menuCliente();
-                            System.out.println("Digite uma opção: ");
-                            opcao = scanner.nextInt();
-                            scanner.nextLine();
-                            switch (opcao) {
-                                case 0:
-                                    break;
-                                case 1:
-                                    System.out.println("ATUALIZAR DADOS");
-                                    System.out.println("Digite o novo nome: ");
-                                    nome = scanner.nextLine();
-                                    cliente.setNome(nome);
-                                    System.out.println("Digite o novo email: ");
-                                    email = scanner.nextLine();
-                                    cliente.setEmail(email);
-                                    System.out.println("Digite a nova senha: ");
-                                    senha = scanner.nextLine();
-                                    cliente.setSenha(senha);
-                                    System.out.println("Digite a nova telefone: ");
-                                    telefone = scanner.nextLine();
-                                    cliente.setTelefone(telefone);
-                                    cliente.editarCliente(db);
-                                    System.out.println("Dados atualizados");
-                                    break;
-                                case 2:
-                                    System.out.println("CRIAR NOVA RESERVA");
-                                    System.out.println("Informe a data no formato AAAA-MM-DD: ");
-                                    dataString = scanner.nextLine();
-                                    data = Date.valueOf(dataString);
-                                    reserva.setDataReserva(data);
-                                    System.out.println("Metodo de pagamento: ");
-                                    metodoPagamento = scanner.nextLine();
-                                    reserva.setMetodoPagamento(metodoPagamento);
-                                    barbearia.listarBarbearias(db);
-                                    System.out.println("Informe o CNPJ do Restaurante escolhido: ");
-                                    cnpj = scanner.nextLine();
-                                    reserva.setIdBarbearia(cnpj);
-                                    servico.listarServicos(db, cnpj);
-                                    System.out.println("Digite o nome do serviço: ");
-                                    nomeServico = scanner.nextLine();
-                                    while (Reserva.pesquisarReservaNoDia(db, data, cnpj)) {
-                                        System.out.println("Mesa ocupada para a data especificada. Digite outra data no formato AAAA-MM-DD: ");
-                                        dataString = scanner.nextLine();
-                                        data = Date.valueOf(dataString);
-                                        reserva.setDataReserva(data);
-                                    }
-                                    System.out.println("Mesa disponível para a data!");
-                                    reserva.setIdCliente(cliente.getCpf());
-                                    reserva.setIdServico(nomeServico);
-                                    reserva.cadastrarReserva(db);
-                                    System.out.println("Reserva cadastrada");
-                                    break;
-                                case 3:
-                                    System.out.println("ATUALIZAR RESERVA");
-                                    reserva.setIdCliente(cliente.getCpf());
-                                    reserva.listarReservas(db);
-                                    System.out.println("Digite o ID da reserva a ser atualizada: ");
-                                    id = scanner.nextInt();
-                                    scanner.nextLine();
-                                    reserva.setId(id);
-                                    System.out.println("Informe a data no formato AAAA-MM-DD: ");
-                                    dataString = scanner.nextLine();
-                                    data = Date.valueOf(dataString);
-                                    reserva.setDataReserva(data);
-                                    System.out.println("Metodo de pagamento: ");
-                                    metodoPagamento = scanner.nextLine();
-                                    reserva.setMetodoPagamento(metodoPagamento);
-                                    barbearia.listarBarbearias(db);
-                                    System.out.println("Informe o CNPJ do Restaurante escolhido: ");
-                                    cnpj = scanner.nextLine();
-                                    reserva.setIdBarbearia(cnpj);
-                                    servico.listarServicos(db, cnpj);
-                                    System.out.println("Digite o nome do serviço: ");
-                                    nomeServico = scanner.nextLine();
-                                    while (Reserva.pesquisarReservaNoDia(db, data, cnpj)) {
-                                        System.out.println("Mesa ocupada para a data especificada. Digite outra data no formato AAAA-MM-DD: ");
-                                        dataString = scanner.nextLine();
-                                        data = Date.valueOf(dataString);
-                                        reserva.setDataReserva(data);
-                                    }
-                                    System.out.println("Mesa disponível para a data!");
-                                    reserva.setIdCliente(cliente.getCpf());
-                                    reserva.setIdServico(nomeServico);
-                                    reserva.editarReserva(db);
-                                    System.out.println("Reserva atualizada");
-                                    break;
-                                case 4:
-                                    System.out.println("CANCELAR RESERVA");
-                                    reserva.listarReservas(db);
-                                    System.out.println("Informe o ID: ");
-                                    id = scanner.nextInt();
-                                    scanner.nextLine();
-                                    reserva.setId(id);
-                                    reserva.removerReserva(db);
-                                    System.out.println("Reserva cancelada");
-                                    break;
-                                case 5:
-                                    System.out.println("BUSCAR RESERVA");
-                                    System.out.println("Informe o ID: ");
-                                    id = scanner.nextInt();
-                                    scanner.nextLine();
-                                    reserva.pesquisarReserva(db, id);
-                                    break;
-                                case 6:
-                                    cliente.removerCliente(db);
-                                    System.out.println("APAGANDO DADOS...");
-                                    System.exit(0);
-                                    break;
-                                default:
-                                    System.out.println("OPÇÃO INVÁLIDA");
-                                    break;
-                            }
-                            if (opcao == 0) {
-                                System.out.println("\nRetornando ao menu principal...");
-                                break;
-                            }
-                        }
+                            menuCliente.exibirMenu();
                     }
                     break;
                 case 2:
@@ -198,6 +83,11 @@ public class Main {
                                     servico.setNomeServico(nomeServico);
                                     System.out.println("Valor do serviço:");
                                     valorServico = scanner.nextFloat();
+                                    nomeServico = scanner.nextLine();
+                                    System.out.println("Duração do serviço:");
+                                    duracaoServico = scanner.nextFloat();
+                                    nomeServico = scanner.nextLine();
+                                    servico.setDuracaoServico(duracaoServico);
                                     servico.setValorServico(valorServico);
                                     servico.setIdBarbearia(barbearia.getCnpj());
                                     servico.cadastrarServico(db);
@@ -211,6 +101,11 @@ public class Main {
                                     novoNomeServico = scanner.nextLine();
                                     System.out.println("Informe o novo valor: ");
                                     novoValorServico = scanner.nextFloat();
+                                    nomeServico = scanner.nextLine();
+                                    System.out.println("Duração do serviço:");
+                                    novaDuracaoServiço = scanner.nextFloat();
+                                    nomeServico = scanner.nextLine();
+                                    servico.setDuracaoServico(novaDuracaoServiço);
                                     servico.setNomeServico(novoNomeServico);
                                     servico.setValorServico(novoValorServico);
                                     servico.editarServico(db, barbearia.getCnpj(), nomeServico);

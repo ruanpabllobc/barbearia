@@ -90,6 +90,6 @@ public class Barbearia extends Usuario {
     //To String
     @Override
     public String toString() {
-        return "Barbearia {nome=" + getNome() + ", endereco=" + getEndereco() + ", Cnpj=" +  getCnpj() + "}";
+        return getNome() + ", CNPJ=" +  getCnpj();
     }
 }

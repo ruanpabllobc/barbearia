@@ -8,11 +8,13 @@ public class Servico {
 
     private String nomeServico;
     private float valorServico;
+    private float duracaoServico;
     private String idBarbearia;
 
-    public Servico(String nomeServico, float valorServico, String idRestaurante) {
+    public Servico(String nomeServico, float valorServico, float duracaoServico, String idRestaurante) {
         this.nomeServico = nomeServico;
         this.valorServico = valorServico;
+        this.duracaoServico = duracaoServico;
         this.idBarbearia = idRestaurante;
     }
 
@@ -20,8 +22,8 @@ public class Servico {
     }
 
     public void cadastrarServico(Banco db) {
-        String query = String.format("INSERT INTO Servico (nome_servico, valor_servico, barbearia) VALUES ('%s', '%.2f', '%s')", // Formato da tabela Servico no banco
-        getNomeServico(), getValorServico(), getIdBarbearia());
+        String query = String.format("INSERT INTO Servico (nome_servico, valor_servico, duracao_servico, barbearia) VALUES ('%s', '%.2f', '%.1f', '%s')", // Formato da tabela Servico no banco
+        getNomeServico(), getValorServico(), getDuracaoServico(), getIdBarbearia());
         db.queryUpdate(query); //Metodo da classe banco para inserir ou atualizar dados na tabela
     }
 
@@ -31,6 +33,7 @@ public class Servico {
     
         setNomeServico(rs.getString("nome_servico")); //Atualizando valor
         setValorServico(rs.getFloat("valor_servico"));
+        setDuracaoServico(rs.getFloat("duracao_servico"));
         setIdBarbearia(rs.getString("barbearia"));
         System.out.println(toString()); //Imprime
     }
@@ -81,9 +84,19 @@ public class Servico {
     public void setIdBarbearia(String idBarbearia) {
         this.idBarbearia = idBarbearia;
     }
+    
+    public float getDuracaoServico() {
+        return duracaoServico;
+    }
+
+    public void setDuracaoServico(float duracaoServico) {
+        this.duracaoServico = duracaoServico;
+    }
 
     @Override
     public String toString() {
-        return "Servico [nomeServico=" + nomeServico + ", valorServico=" + valorServico + "]";
+        return "Servico [nomeServico=" + nomeServico + ", valorServico=" + valorServico + ", duracaoServico="
+                + duracaoServico + ", idBarbearia=" + idBarbearia + "]";
     }
+
 }
