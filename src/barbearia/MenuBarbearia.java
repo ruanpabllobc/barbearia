@@ -47,7 +47,7 @@ public void exibirMenu() throws SQLException {
             System.out.println("3. ATUALIZAR RESERVA");
             System.out.println("4. BUSCAR RESERVA");
             System.out.println("5. CANCELAR RESERVA");
-            System.out.println("6. LISTAR RESERVA");
+            System.out.println("6. LISTAR RESERVAS");
             System.out.println("7. CADASTRAR SERVIÇO");
             System.out.println("8. ATUALIZAR SERVIÇO");
             System.out.println("9. LISTAR SERVIÇOS");
@@ -133,7 +133,7 @@ public void exibirMenu() throws SQLException {
                     break;
                 case 5:
                     System.out.println("Opção 5 selecionada: Cancelar reserva");
-                    reserva.listarReservas(db);
+                    reserva.listarReservas(db, barbearia.getCnpj());
                     System.out.println("Informe o ID da reserva a ser cancelada: ");
                     id = scanner.nextInt();
                     scanner.nextLine();
@@ -143,7 +143,7 @@ public void exibirMenu() throws SQLException {
                     break;
                 case 6:
                     System.out.println("Opção 6 selecionada: Listar reservas");
-                    reserva.listarReservas(db);
+                    reserva.listarReservas(db, barbearia.getCnpj());
                     break;
                 case 7:
                     System.out.println("Opção 7 selecionada: Cadastrar serviços");

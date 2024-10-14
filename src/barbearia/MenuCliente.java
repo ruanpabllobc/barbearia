@@ -105,11 +105,11 @@ public class MenuCliente {
                         break;
                     case 4:
                         System.out.println("Opção 4 selecionada: Minhas Reservas");
-                        reserva.listarReservas(db);
+                        reserva.listarReservas(db, cliente.getCpf());
                         break;
                     case 5:
                         System.out.println("Opção 3 selecionada: Cancelar reserva");
-                        reserva.listarReservas(db);
+                        reserva.listarReservas(db, cliente.getCpf());
                         System.out.println("Informe o ID da sua reserva: ");
                         id = scanner.nextInt();
                         scanner.nextLine();

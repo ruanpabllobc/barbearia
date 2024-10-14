@@ -62,8 +62,8 @@ public class Reserva {
     }
     
     
-    public void listarReservas(Banco db) throws SQLException {
-        String query = "SELECT * FROM Reserva"; //Seleciona os dados da tabela Reserva
+    public void listarReservas(Banco db, String usuarioId) throws SQLException {
+        String query = String.format("SELECT * FROM Reserva WHERE (cliente = '%s' OR barbearia = '%s')", usuarioId, usuarioId);
         ResultSet rs = db.querySearch(query); //rs obtem o resultado da busca
 
         while (rs.next()){ //Percore cada linha da lista e atualiza seus dados
