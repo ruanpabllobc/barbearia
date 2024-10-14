@@ -26,7 +26,7 @@ public class MenuBarbearia {
 
     // Método que exibe o menu e trata as opções
 public void exibirMenu() throws SQLException {
-    String cnpj, cpf, nome, email, senha, endereco, pagamento, servicos;
+    String cnpj, cpf, nome, email, senha, endereco, pagamento, servicos, confirma;
     float valor;
     Date dataHora;
     int opcao, id;
@@ -188,11 +188,19 @@ public void exibirMenu() throws SQLException {
                     System.out.println("Serviço removido");
                     break;
                 case 11:
-                    System.out.println("Opção 11 selecionada: Remover perfil");
-                    barbearia.removerBarbearia(db);
+                System.out.println("Opção 11 selecionada: Remover perfil");
+                System.out.print("Você tem certeza que deseja remover o perfil? (s/n): ");
+                confirma = scanner.nextLine().trim().toLowerCase(); // Ler a resposta do usuário
+                // Verifica a resposta do usuário
+                if (confirma.equals("s")) {
+                    barbearia.removerBarbearia(db); // Chama o método para remover a barbearia
                     System.out.println("APAGANDO DADOS...");
-                    System.exit(0);
-                    break;
+                    System.exit(0); // Encerra o programa
+                } else {
+                    System.out.println("Ação cancelada. O perfil não foi removido."); // Mensagem de cancelamento
+                }
+                break;
+            
                 default:
                     System.out.println("Opção inválida. Tente novamente.");
             }
