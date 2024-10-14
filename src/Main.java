@@ -26,9 +26,7 @@ public class Main {
             System.out.println("BEM-VINDO!");
             System.out.println("1. LOGIN CLIENTE\n2. LOGIN BARBEARIA\n3. NOVO CLIENTE\n4. NOVA BARBEARIA\n0. SAIR");
             System.out.println("-----------------------------");
-            System.out.println("Digite uma opção: ");
-            opcao = scanner.nextInt();
-            scanner.nextLine();
+            opcao = Validador.obterIntValido(scanner, "Digite uma opção: ");
             switch (opcao) {
                 case 0:
                     System.out.println("Saindo...");
