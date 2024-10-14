@@ -84,10 +84,17 @@ public class Reserva {
         db.queryUpdate(query); //Atualiza a tabela
     }
 
-    public void removerReserva(Banco db) {
-        String query = String.format("DELETE FROM Reserva WHERE id_reserva = %d", getId());
-        db.queryUpdate(query); //Busca uma reserva pelo seu ID e delta da tabela
+    public void removerReserva(Banco db, String usuarioId) {
+        String query = String.format("DELETE FROM Reserva WHERE id_reserva = %d AND (cliente = '%s' OR barbearia = '%s')", getId(), usuarioId, usuarioId); 
+        int rowsAffected = db.queryUpdate(query); // Executa a atualização e captura o número de linhas afetadas
+    
+        if (rowsAffected == 0) {
+            System.out.println("Reserva não encontrada.");
+        } else {
+            System.out.println("Reserva removida com sucesso."); // Mensagem de sucesso
+        }
     }
+    
 
     public int getId() {
         return id;

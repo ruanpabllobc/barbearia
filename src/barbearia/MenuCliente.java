@@ -114,8 +114,7 @@ public class MenuCliente {
                         id = scanner.nextInt();
                         scanner.nextLine();
                         reserva.setId(id);
-                        reserva.removerReserva(db);
-                        System.out.println("Reserva cancelada");
+                        reserva.removerReserva(db, cliente.getCpf());
                         break;
                     case 6:
                         System.out.println("Opção 5 selecionada: Remover perfil");

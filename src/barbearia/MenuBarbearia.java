@@ -138,7 +138,7 @@ public void exibirMenu() throws SQLException {
                     id = scanner.nextInt();
                     scanner.nextLine();
                     reserva.setId(id);
-                    reserva.removerReserva(db);
+                    reserva.removerReserva(db, barbearia.getCnpj());
                     System.out.println("Reserva cancelada");
                     break;
                 case 6:
