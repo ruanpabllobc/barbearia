@@ -42,20 +42,15 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("INSIRA OS DADOS PARA CADASTRO");
-                    System.out.println("Digite o nome: ");
-                    nome = scanner.nextLine();
+                    nome = obterEntradaValida(scanner, "Digite seu nome: ");
                     cliente.setNome(nome);
-                    System.out.println("Digite o CPF:");
-                    cpf = scanner.nextLine();
+                    cpf = obterEntradaValida(scanner, "Digite seu CPF: ");
                     cliente.setCpf(cpf);
-                    System.out.println("Digite o email: ");
-                    email = scanner.nextLine();
+                    email = obterEntradaValida(scanner, "Digite seu e-mail: ");
                     cliente.setEmail(email);
-                    System.out.println("Digite a senha: ");
-                    senha = scanner.nextLine();
+                    senha = obterSenhaValida(scanner);
                     cliente.setSenha(senha);
-                    System.out.println("Digite o telefone: ");
-                    telefone = scanner.nextLine();
+                    telefone = obterEntradaValida(scanner, "Digite seu telefone: ");
                     cliente.setTelefone(telefone);
                     cliente.cadastrarCliente(db);
                     System.out.println("Cliente cadastrado");
@@ -89,5 +84,46 @@ public class Main {
                     break;
             }
         } while (true);
+    }
+
+    private static String obterEntradaValida(Scanner scanner, String mensagem) {
+        String entrada;
+        do {
+            System.out.print(mensagem);
+            entrada = scanner.nextLine().trim(); // Remove espaços em branco
+            if (entrada.isEmpty()) { // Verifica se a entrada está vazia
+                System.out.println("A entrada não pode ser vazia. Por favor, tente novamente.");
+            }
+        } while (entrada.isEmpty()); // Continua pedindo até receber uma entrada válida
+        return entrada; // Retorna a entrada válida
+    }
+
+    private static String obterSenhaValida(Scanner scanner) {
+        String senha = null;
+        String confirmarSenha = null;
+        do {
+            System.out.print("Digite sua senha: ");
+            senha = scanner.nextLine().trim(); // Remove espaços em branco
+
+            // Verifica se a senha não está vazia após trim()
+            if (senha.isEmpty()) {
+                System.out.println("A senha não pode estar vazia ou conter apenas espaços.");
+                continue; // Volta para o início do loop
+            }
+
+            System.out.print("Confirme sua senha: ");
+            confirmarSenha = scanner.nextLine().trim(); // Remove espaços em branco
+
+            // Verifica se a senha de confirmação não está vazia após trim()
+            if (confirmarSenha.isEmpty()) {
+                System.out.println("A confirmação da senha não pode estar vazia ou conter apenas espaços.");
+                continue; // Volta para o início do loop
+            }
+
+            if (!senha.equals(confirmarSenha)) {
+                System.out.println("As senhas não correspondem. Tente novamente.");
+            }
+        } while (!senha.equals(confirmarSenha)); // Continua pedindo até que as senhas coincidam
+        return senha; // Retorna a senha válida
     }
 }

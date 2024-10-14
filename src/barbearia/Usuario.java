@@ -5,26 +5,26 @@ public class Usuario {
     private String senha;
     private String email;
 
-    public Usuario(String nome, String senha, String email){
+    public Usuario(String nome, String senha, String email) {
         this.nome = nome;
         this.senha = senha;
         this.email = email;
     }
 
-    public Usuario(){ //Construtor auxiliar
+    public Usuario() { // Construtor auxiliar
     }
 
-    public boolean usuarioLogin(String senha) { //Metodo de login, compara a senha digitada com a senha guardada
+    public boolean usuarioLogin(String senha) { // Metodo de login, compara a senha digitada com a senha guardada
         if (senha.equals(getSenha())) {
-        System.out.println("\nLogin realizado com sucesso!");
-        return true;
+            System.out.println("\nLogin realizado com sucesso!");
+            return true;
         } else {
-        System.out.println("\nSenha incorreta!");
-        return false;
+            System.out.println("\nSenha incorreta!");
+            return false;
         }
     }
 
-    //Metodos Get e Set
+    // Metodos Get e Set
     public String getNome() {
         return nome;
     }
@@ -40,7 +40,7 @@ public class Usuario {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+
     public String getEmail() {
         return email;
     }
@@ -49,7 +49,7 @@ public class Usuario {
         this.email = email;
     }
 
-    //To String
+    // To String
     @Override
     public String toString() {
         return "Usuario {nome=" + getNome() + ", senha=" + getSenha() + ", email=" + getEmail() + "}";
