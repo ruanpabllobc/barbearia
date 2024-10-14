@@ -1,8 +1,9 @@
-package src.barbearia;
+package src.barbearia.models;
 
-import src.db.Banco;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+
+import src.database.Banco;
 
 public class Servico {
 

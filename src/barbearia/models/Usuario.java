@@ -1,4 +1,4 @@
-package src.barbearia;
+package src.barbearia.models;
 
 public class Usuario {
     private String nome;

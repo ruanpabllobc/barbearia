@@ -1,8 +1,15 @@
-package src.barbearia;
+package src.barbearia.views;
 
 import java.sql.Date;
 import java.sql.SQLException;
-import src.db.Banco;
+
+import src.barbearia.controllers.Validador;
+import src.barbearia.models.Barbearia;
+import src.barbearia.models.Cliente;
+import src.barbearia.models.Reserva;
+import src.barbearia.models.Servico;
+import src.database.Banco;
+
 import java.util.Scanner;
 
 public class MenuCliente {

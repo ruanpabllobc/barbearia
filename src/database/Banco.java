@@ -1,4 +1,4 @@
-package src.db;
+package src.database;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -12,7 +12,7 @@ public class Banco {
     
     public Banco() { //Estabelece a conexão com o banco
         try{
-            this.db = DriverManager.getConnection("jdbc:sqlite:src/db/data.db");
+            this.db = DriverManager.getConnection("jdbc:sqlite:src/database/data.db");
             this.statement = this.db.createStatement(); // Utiliza o statement para executar consultas SQL
             this.statement.setQueryTimeout(5); //Tempo limite para a consulta           
         }catch (SQLException e){

@@ -1,8 +1,8 @@
-package src.barbearia;
+package src.barbearia.models;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import src.db.Banco;
+import src.database.Banco;
 
 public class Barbearia extends Usuario {
 

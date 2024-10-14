@@ -1,12 +1,14 @@
-package src;
+package src.barbearia;
 
 import java.sql.SQLException;
-import src.barbearia.Barbearia;
-import src.barbearia.Cliente;
-import src.barbearia.MenuBarbearia;
-import src.barbearia.MenuCliente;
-import src.barbearia.Validador;
-import src.db.Banco;
+
+import src.barbearia.models.Cliente;
+import src.barbearia.models.Barbearia;
+import src.barbearia.views.MenuBarbearia;
+import src.barbearia.views.MenuCliente;
+import src.barbearia.controllers.Validador;
+import src.database.Banco;
+
 import java.util.Scanner;
 
 public class Main {

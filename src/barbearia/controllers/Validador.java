@@ -1,4 +1,4 @@
-package src.barbearia;
+package src.barbearia.controllers;
 
 import java.sql.Date;
 import java.util.Scanner;
