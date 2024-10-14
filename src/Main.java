@@ -5,6 +5,7 @@ import src.barbearia.Barbearia;
 import src.barbearia.Cliente;
 import src.barbearia.MenuBarbearia;
 import src.barbearia.MenuCliente;
+import src.barbearia.Validador;
 import src.db.Banco;
 import java.util.Scanner;
 
@@ -42,11 +43,11 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("INSIRA OS DADOS PARA CADASTRO");
-                    cpf = obterEntradaValida(scanner, "Digite seu CPF: ");
-                    nome = obterEntradaValida(scanner, "Digite seu nome: ");
-                    email = obterEntradaValida(scanner, "Digite seu e-mail: ");
-                    senha = obterSenhaValida(scanner);
-                    telefone = obterEntradaValida(scanner, "Digite seu telefone: ");
+                    cpf = Validador.obterEntradaNumericaValida(scanner, "Digite seu CPF: ");
+                    nome = Validador.obterEntradaValida(scanner, "Digite seu nome: ");
+                    email = Validador.obterEntradaValida(scanner, "Digite seu e-mail: ");
+                    senha = Validador.obterSenhaValida(scanner);
+                    telefone = Validador.obterEntradaNumericaValida(scanner, "Digite seu telefone: ");
                     cliente.setCpf(cpf);
                     cliente.setNome(nome);
                     cliente.setSenha(senha);
@@ -57,13 +58,12 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("INSIRA OS DADOS PARA CADASTRO");
-                    cnpj = obterEntradaValida(scanner, "Digite seu CNPJ: ");
-                    nome = obterEntradaValida(scanner, "Digite seu nome: ");
-                    senha = obterSenhaValida(scanner);
-                    System.out.println("Informe o ano de abertura:");
-                    anoAbertura = scanner.nextInt(); scanner.nextLine();
-                    endereco = obterEntradaValida(scanner, "Digite seu endereço: ");
-                    email = obterEntradaValida(scanner, "Digite o email:");
+                    cnpj = Validador.obterEntradaNumericaValida(scanner, "Digite seu CNPJ: ");
+                    nome = Validador.obterEntradaValida(scanner, "Digite seu nome: ");
+                    senha = Validador.obterSenhaValida(scanner);
+                    anoAbertura = Validador.obterIntValido(scanner, "Digite o Digite o ano de abertura:");
+                    endereco = Validador.obterEntradaValida(scanner, "Digite seu endereço: ");
+                    email = Validador.obterEntradaValida(scanner, "Digite o email:");
                     barbearia.setCnpj(cnpj);
                     barbearia.setNome(nome);
                     barbearia.setSenha(senha);
@@ -78,46 +78,5 @@ public class Main {
                     break;
             }
         } while (true);
-    }
-
-    private static String obterEntradaValida(Scanner scanner, String mensagem) {
-        String entrada;
-        do {
-            System.out.print(mensagem);
-            entrada = scanner.nextLine().trim(); // Remove espaços em branco
-            if (entrada.isEmpty()) { // Verifica se a entrada está vazia
-                System.out.println("A entrada não pode ser vazia. Por favor, tente novamente.");
-            }
-        } while (entrada.isEmpty()); // Continua pedindo até receber uma entrada válida
-        return entrada; // Retorna a entrada válida
-    }
-
-    private static String obterSenhaValida(Scanner scanner) {
-        String senha = null;
-        String confirmarSenha = null;
-        do {
-            System.out.print("Digite sua senha: ");
-            senha = scanner.nextLine().trim(); // Remove espaços em branco
-
-            // Verifica se a senha não está vazia após trim()
-            if (senha.isEmpty()) {
-                System.out.println("A senha não pode estar vazia ou conter apenas espaços.");
-                continue; // Volta para o início do loop
-            }
-
-            System.out.print("Confirme sua senha: ");
-            confirmarSenha = scanner.nextLine().trim(); // Remove espaços em branco
-
-            // Verifica se a senha de confirmação não está vazia após trim()
-            if (confirmarSenha.isEmpty()) {
-                System.out.println("A confirmação da senha não pode estar vazia ou conter apenas espaços.");
-                continue; // Volta para o início do loop
-            }
-
-            if (!senha.equals(confirmarSenha)) {
-                System.out.println("As senhas não correspondem. Tente novamente.");
-            }
-        } while (!senha.equals(confirmarSenha)); // Continua pedindo até que as senhas coincidam
-        return senha; // Retorna a senha válida
     }
 }

@@ -31,10 +31,10 @@ public class MenuBarbearia {
         Date dataHora;
         int opcao, id;
 
-        cnpj = obterEntradaValida(scanner, "Digite seu CNPJ: ");
+        cnpj = Validador.obterEntradaValida(scanner, "Digite seu CNPJ: ");
         barbearia.setCnpj(cnpj);
         barbearia.pesquisarBarbearia(db, cnpj);
-        senha = obterEntradaValida(scanner, "Digite sua senha: ");
+        senha = Validador.obterEntradaValida(scanner, "Digite sua senha: ");
 
         if (barbearia.usuarioLogin(senha)) {
             System.out.println("Senha correta!");
@@ -54,18 +54,16 @@ public class MenuBarbearia {
                 System.out.println("0. SAIR");
                 System.out.println("------------------------");
 
-                System.out.print("Digite a opção desejada: ");
-                opcao = scanner.nextInt();
-                scanner.nextLine(); // Limpa a linha
+                opcao = Validador.obterIntValido(scanner, "Digite a opção desejada: ");
 
                 switch (opcao) {
                     case 1:
                         System.out.println("Opção 1 selecionada: Atualizar perfil");
-                        nome = obterEntradaValida(scanner, "Digite o novo nome: ");
+                        nome = Validador.obterEntradaValida(scanner, "Digite o novo nome: ");
                         System.out.println("Digite o novo email: ");
-                        email = obterEntradaValida(scanner, "Digite o novo email: ");
-                        senha = obterSenhaValida(scanner);
-                        endereco = obterEntradaValida(scanner, "Digite o novo endereço: ");
+                        email = Validador.obterEntradaValida(scanner, "Digite o novo email: ");
+                        senha = Validador.obterSenhaValida(scanner);
+                        endereco = Validador.obterEntradaValida(scanner, "Digite o novo endereço: ");
                         barbearia.setNome(nome);
                         barbearia.setEmail(email);
                         barbearia.setSenha(senha);
@@ -76,16 +74,16 @@ public class MenuBarbearia {
                     case 2:
                         System.out.println("Opção 2 selecionada: Nova reserva");
                         cliente.listarClientes(db);
-                        cpf = obterEntradaValida(scanner, "Digite o CPF do cliente: ");
-                        dataHora = converterData(scanner);
+                        cpf = Validador.obterEntradaNumericaValida(scanner, "Digite o CPF do cliente: ");
+                        dataHora = Validador.converterData(scanner);
                         while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj())) {
                             System.out.println("Data ocupada. Tente outra data.");
-                            dataHora = converterData(scanner);
+                            dataHora = Validador.converterData(scanner);
                         }
                         System.out.println("Data disponível para a reserva!");
-                        pagamento = obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
+                        pagamento = Validador.obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
                         servico.listarServicos(db, barbearia.getCnpj());
-                        servicos = obterEntradaValida(scanner, "Digite o nome do serviço: ");
+                        servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         cliente.setCpf(cpf);
                         reserva.setIdCliente(cliente.getCpf());
                         reserva.setDataReserva(dataHora);
@@ -97,15 +95,15 @@ public class MenuBarbearia {
                         break;
                     case 3:
                         System.out.println("Opção 3 selecionada: Atualizar reserva");
-                        dataHora = converterData(scanner);
+                        dataHora = Validador.converterData(scanner);
                         while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj())) {
                             System.out.println("Data ocupada. Tente outra data.");
-                            dataHora = converterData(scanner);
+                            dataHora = Validador.converterData(scanner);
                         }
                         System.out.println("Data disponível para a reserva!");
-                        pagamento = obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
+                        pagamento = Validador.obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
                         servico.listarServicos(db, barbearia.getCnpj());
-                        servicos = obterEntradaValida(scanner, "Digite o nome do serviço: ");
+                        servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         reserva.setIdCliente(cliente.getCpf());
                         reserva.setDataReserva(dataHora);
                         reserva.setMetodoPagamento(pagamento);
@@ -116,17 +114,13 @@ public class MenuBarbearia {
                         break; // Adicionado break aqui
                     case 4:
                         System.out.println("Opção 4 selecionada: Buscar reserva");
-                        System.out.println("Informe o ID da reserva: ");
-                        id = scanner.nextInt();
-                        scanner.nextLine();
+                        id = Validador.obterIntValido(scanner, "Digite o ID da reserva: ");
                         reserva.pesquisarReserva(db, id, barbearia.getCnpj());
                         break;
                     case 5:
                         System.out.println("Opção 5 selecionada: Cancelar reserva");
                         reserva.listarReservas(db, barbearia.getCnpj());
-                        System.out.println("Informe o ID da reserva a ser cancelada: ");
-                        id = scanner.nextInt();
-                        scanner.nextLine();
+                        id = Validador.obterIntValido(scanner, "Digite o ID da sua reserva: ");
                         reserva.setId(id);
                         reserva.removerReserva(db, barbearia.getCnpj());
                         System.out.println("Reserva cancelada");
@@ -137,9 +131,8 @@ public class MenuBarbearia {
                         break;
                     case 7:
                         System.out.println("Opção 7 selecionada: Cadastrar serviços");
-                        nome = obterEntradaValida(scanner, "Informe o nome: ");
-                        System.out.println("Informe o valor: ");
-                        valor = scanner.nextFloat();
+                        nome = Validador.obterEntradaValida(scanner, "Digite o nome: ");
+                        valor = Validador.obterFloatValido(scanner, "Digite o valor: ");
                         scanner.nextLine();
                         barbearia.setCnpj(barbearia.getCnpj());
                         servico.setNomeServico(nome);
@@ -150,9 +143,9 @@ public class MenuBarbearia {
                         break;
                     case 8:
                         System.out.println("Opção 8 selecionada: Atualizar serviços");
-                        servicos = obterEntradaValida(scanner, "Informe o nome do serviço: ");
-                        nome = obterEntradaValida(scanner, "Informe o novo nome do serviço: ");
-                        System.out.println("Informe o novo valor: ");
+                        servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
+                        nome = Validador.obterEntradaValida(scanner, "Digite o novo nome do serviço: ");
+                        System.out.println("Digite o novo valor: ");
                         valor = scanner.nextFloat();
                         scanner.nextLine();
                         servico.setNomeServico(nome);
@@ -168,7 +161,7 @@ public class MenuBarbearia {
                     case 10:
                         System.out.println("Opção 10 selecionada: Remover serviço");
                         servico.listarServicos(db, barbearia.getCnpj());
-                        nome = obterEntradaValida(scanner, "Informe o nome do serviço: ");
+                        nome = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         servico.setNomeServico(nome);
                         servico.removerServico(db, barbearia.getCnpj());
                         System.out.println("Serviço removido");
@@ -193,52 +186,5 @@ public class MenuBarbearia {
                 }
             } while (opcao != 0);
         }
-    }
-
-    private static Date converterData(Scanner scanner) {
-        System.out.println("Informe a data no formato AAAA-MM-DD: ");
-        String dataString = scanner.nextLine();
-        return Date.valueOf(dataString);
-    }
-
-    private static String obterEntradaValida(Scanner scanner, String mensagem) {
-        String entrada;
-        do {
-            System.out.print(mensagem);
-            entrada = scanner.nextLine().trim(); // Remove espaços em branco
-            if (entrada.isEmpty()) { // Verifica se a entrada está vazia
-                System.out.println("A entrada não pode ser vazia. Por favor, tente novamente.");
-            }
-        } while (entrada.isEmpty()); // Continua pedindo até receber uma entrada válida
-        return entrada; // Retorna a entrada válida
-    }
-
-    private static String obterSenhaValida(Scanner scanner) {
-        String senha = null;
-        String confirmarSenha = null;
-        do {
-            System.out.print("Digite sua senha: ");
-            senha = scanner.nextLine().trim(); // Remove espaços em branco
-
-            // Verifica se a senha não está vazia após trim()
-            if (senha.isEmpty()) {
-                System.out.println("A senha não pode estar vazia ou conter apenas espaços.");
-                continue; // Volta para o início do loop
-            }
-
-            System.out.print("Confirme sua senha: ");
-            confirmarSenha = scanner.nextLine().trim(); // Remove espaços em branco
-
-            // Verifica se a senha de confirmação não está vazia após trim()
-            if (confirmarSenha.isEmpty()) {
-                System.out.println("A confirmação da senha não pode estar vazia ou conter apenas espaços.");
-                continue; // Volta para o início do loop
-            }
-
-            if (!senha.equals(confirmarSenha)) {
-                System.out.println("As senhas não correspondem. Tente novamente.");
-            }
-        } while (!senha.equals(confirmarSenha)); // Continua pedindo até que as senhas coincidam
-        return senha; // Retorna a senha válida
     }
 }

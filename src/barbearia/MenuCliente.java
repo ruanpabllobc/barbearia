@@ -31,10 +31,10 @@ public class MenuCliente {
         Date dataHora;
         int opcao, id;
 
-        cpf = obterEntradaValida(scanner, "Digite o seu CPF: ");
+        cpf = Validador.obterEntradaValida(scanner, "Digite o seu CPF: ");
         cliente.setCpf(cpf);
         cliente.pesquisarCliente(db, cpf);
-        senha = obterEntradaValida(scanner, "Digite a sua senha: ");
+        senha = Validador.obterEntradaValida(scanner, "Digite a sua senha: ");
         if (cliente.usuarioLogin(senha)) {
             System.out.println("Senha correta!");
             do {
@@ -48,17 +48,15 @@ public class MenuCliente {
                 System.out.println("0. SAIR");
                 System.out.println("------------------------");
     
-                System.out.print("Digite a opção desejada: ");
-                opcao = scanner.nextInt();
-                scanner.nextLine(); // Limpa a linha
-    
+                opcao = Validador.obterIntValido(scanner, "Digite a opção desejada: ");
+                    
                 switch (opcao) {
                     case 1:
                         System.out.println("Opção 1 selecionada: Atualizar perfil");
-                        nome = obterEntradaValida(scanner, "Digite o novo nome: ");
-                        senha = obterSenhaValida(scanner);
-                        email = obterEntradaValida(scanner, "Digite o novo email: ");
-                        telefone = obterEntradaValida(scanner, "Digite a nova telefone: ");
+                        nome = Validador.obterEntradaValida(scanner, "Digite o novo nome: ");
+                        senha = Validador.obterSenhaValida(scanner);
+                        email = Validador.obterEntradaValida(scanner, "Digite o novo email: ");
+                        telefone = Validador.obterEntradaNumericaValida(scanner, "Digite o novo telefone: ");
                         cliente.setNome(nome);
                         cliente.setSenha(senha);
                         cliente.setEmail(email);
@@ -69,16 +67,16 @@ public class MenuCliente {
                     case 2:
                         System.out.println("Opção 2 selecionada: Nova reserva");
                         barbearia.listarBarbearias(db);
-                        cnpj = obterEntradaValida(scanner, "Informe o CNPJ da barbearia: ");
-                        dataHora = converterData(scanner);
+                        cnpj = Validador.obterEntradaValida(scanner, "Digite o CNPJ da barbearia: ");
+                        dataHora = Validador.converterData(scanner);
                         while (Reserva.pesquisarReservaNoDia(db, dataHora, cnpj)) {
                             System.out.println("Data ocupada. Tente outra data.");
-                            dataHora = converterData(scanner);
+                            dataHora = Validador.converterData(scanner);
                         }
                         System.out.println("Data disponível para a reserva!");
-                        pagamento = obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
+                        pagamento = Validador.obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
                         servico.listarServicos(db, cnpj);
-                        servicos = obterEntradaValida(scanner, "Digite o nome do serviço: ");
+                        servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         reserva.setIdCliente(cliente.getCpf());
                         reserva.setIdBarbearia(cnpj);
                         reserva.setDataReserva(dataHora);
@@ -89,8 +87,7 @@ public class MenuCliente {
                         break;
                     case 3:
                         System.out.println("Opção 4 selecionada: Buscar reserva");
-                        System.out.println("Informe o ID da sua reserva: ");
-                        id = scanner.nextInt(); scanner.nextLine();
+                        id = Validador.obterIntValido(scanner, "Digite o ID da sua reserva: ");
                         reserva.pesquisarReserva(db, id, cliente.getCpf());
                         break;
                     case 4:
@@ -100,8 +97,7 @@ public class MenuCliente {
                     case 5:
                         System.out.println("Opção 3 selecionada: Cancelar reserva");
                         reserva.listarReservas(db, cliente.getCpf());
-                        System.out.println("Informe o ID da sua reserva: ");
-                        id = scanner.nextInt(); scanner.nextLine();
+                        id = Validador.obterIntValido(scanner, "Digite o ID da sua reserva: ");
                         reserva.setId(id);
                         reserva.removerReserva(db, cliente.getCpf());
                         break;
@@ -123,54 +119,5 @@ public class MenuCliente {
                 }
             } while (opcao != 0);
         }
-
-    }
-
-    // Método auxiliar para converter a data
-    private static Date converterData(Scanner scanner) {
-        System.out.println("Informe a data no formato AAAA-MM-DD: ");
-        String dataString = scanner.nextLine();
-        return Date.valueOf(dataString);
-    }
-
-    private static String obterEntradaValida(Scanner scanner, String mensagem) {
-        String entrada;
-        do {
-            System.out.print(mensagem);
-            entrada = scanner.nextLine().trim(); // Remove espaços em branco
-            if (entrada.isEmpty()) { // Verifica se a entrada está vazia
-                System.out.println("A entrada não pode ser vazia. Por favor, tente novamente.");
-            }
-        } while (entrada.isEmpty()); // Continua pedindo até receber uma entrada válida
-        return entrada; // Retorna a entrada válida
-    }
-
-    private static String obterSenhaValida(Scanner scanner) {
-        String senha = null;
-        String confirmarSenha = null;
-        do {
-            System.out.print("Digite sua senha: ");
-            senha = scanner.nextLine().trim(); // Remove espaços em branco
-
-            // Verifica se a senha não está vazia após trim()
-            if (senha.isEmpty()) {
-                System.out.println("A senha não pode estar vazia ou conter apenas espaços.");
-                continue; // Volta para o início do loop
-            }
-
-            System.out.print("Confirme sua senha: ");
-            confirmarSenha = scanner.nextLine().trim(); // Remove espaços em branco
-
-            // Verifica se a senha de confirmação não está vazia após trim()
-            if (confirmarSenha.isEmpty()) {
-                System.out.println("A confirmação da senha não pode estar vazia ou conter apenas espaços.");
-                continue; // Volta para o início do loop
-            }
-
-            if (!senha.equals(confirmarSenha)) {
-                System.out.println("As senhas não correspondem. Tente novamente.");
-            }
-        } while (!senha.equals(confirmarSenha)); // Continua pedindo até que as senhas coincidam
-        return senha; // Retorna a senha válida
     }
 }
