@@ -21,7 +21,7 @@ public class Barbearia extends Usuario {
     }
     
     public void cadastrarBarbearia(Banco db) {
-        String query = String.format("INSERT INTO Barbearia (nome, endereco, senha, email, ano_abertura, cnpj) VALUES ('%s', '%s', '%s', '%s', '%s', '%s')", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(),getCnpj()); //Cadastra uma barbearia preenchendo os valores da coluna Barbearia pelo metodo Get
+        String query = String.format("INSERT INTO Barbearia (nome, endereco, senha, email, ano_abertura, cnpj) VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(),getCnpj()); //Cadastra uma barbearia preenchendo os valores da coluna Barbearia pelo metodo Get
         db.queryUpdate(query); //Atualiza no banco
     }
 

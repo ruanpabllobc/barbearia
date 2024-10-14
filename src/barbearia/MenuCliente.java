@@ -49,11 +49,11 @@ public class MenuCliente {
                 System.out.println("6. DELETAR PERFIL");
                 System.out.println("0. SAIR");
                 System.out.println("------------------------");
-
+    
                 System.out.print("Digite a opção desejada: ");
                 opcao = scanner.nextInt();
                 scanner.nextLine(); // Limpa a linha
-
+    
                 switch (opcao) {
                     case 1:
                         System.out.println("Opção 1 selecionada: Atualizar perfil");
@@ -117,18 +117,17 @@ public class MenuCliente {
                         reserva.removerReserva(db, cliente.getCpf());
                         break;
                     case 6:
-                        System.out.println("Opção 11 selecionada: Remover perfil");
-                        System.out.print("Você tem certeza que deseja remover o perfil? (s/n): ");
-                        confirma = scanner.nextLine().trim().toLowerCase(); // Ler a resposta do usuário
-                        // Verifica a resposta do usuário
-                        if (confirma.equals("s")) {
-                            cliente.removerCliente(db);// Chama o método para remover a barbearia
-                            System.out.println("APAGANDO DADOS...");
-                            System.exit(0); // Encerra o programa
-                        } else {
-                            System.out.println("Ação cancelada. O perfil não foi removido."); // Mensagem de
-                                                                                              // cancelamento
-                        }
+                    System.out.println("Opção 11 selecionada: Remover perfil");
+                    System.out.print("Você tem certeza que deseja remover o perfil? (s/n): ");
+                    confirma = scanner.nextLine().trim().toLowerCase(); // Ler a resposta do usuário
+                    // Verifica a resposta do usuário
+                    if (confirma.equals("s")) {
+                        cliente.removerCliente(db);// Chama o método para remover a barbearia
+                        System.out.println("APAGANDO DADOS...");
+                        System.exit(0); // Encerra o programa
+                    } else {
+                        System.out.println("Ação cancelada. O perfil não foi removido."); // Mensagem de cancelamento
+                    }
                         break;
                     default:
                         System.out.println("Opção inválida. Tente novamente.");

@@ -19,7 +19,7 @@ public class Usuario {
             System.out.println("\nLogin realizado com sucesso!");
             return true;
         } else {
-            System.out.println("\nSenha incorreta!");
+            System.out.println("\nUsuário ou senha incorretos!");
             return false;
         }
     }

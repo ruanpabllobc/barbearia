@@ -31,11 +31,10 @@ public class MenuBarbearia {
         Date dataHora;
         int opcao, id;
 
-        System.out.println("Digite o seu CNPJ: ");
-        cnpj = obterEntradaValida(scanner, "Digite seu nome");
+        cnpj = obterEntradaValida(scanner, "Digite seu CNPJ: ");
         barbearia.setCnpj(cnpj);
         barbearia.pesquisarBarbearia(db, cnpj);
-        senha = obterEntradaValida(scanner, "Digite sua senha");
+        senha = obterEntradaValida(scanner, "Digite sua senha: ");
 
         if (barbearia.usuarioLogin(senha)) {
             System.out.println("Senha correta!");
@@ -84,7 +83,7 @@ public class MenuBarbearia {
                             dataHora = converterData(scanner);
                         }
                         System.out.println("Data disponível para a reserva!");
-                        pagamento = obterEntradaValida(scanner, "Método de pagamento: Pix ou Cartão");
+                        pagamento = obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
                         servico.listarServicos(db, barbearia.getCnpj());
                         servicos = obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         cliente.setCpf(cpf);
@@ -104,7 +103,7 @@ public class MenuBarbearia {
                             dataHora = converterData(scanner);
                         }
                         System.out.println("Data disponível para a reserva!");
-                        pagamento = obterEntradaValida(scanner, "Método de pagamento: Pix ou Cartão");
+                        pagamento = obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
                         servico.listarServicos(db, barbearia.getCnpj());
                         servicos = obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         reserva.setIdCliente(cliente.getCpf());
@@ -138,7 +137,6 @@ public class MenuBarbearia {
                         break;
                     case 7:
                         System.out.println("Opção 7 selecionada: Cadastrar serviços");
-                        System.out.println("Informe o nome: ");
                         nome = obterEntradaValida(scanner, "Informe o nome: ");
                         System.out.println("Informe o valor: ");
                         valor = scanner.nextFloat();
