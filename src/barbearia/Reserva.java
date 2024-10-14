@@ -30,8 +30,9 @@ public class Reserva {
         db.queryUpdate(query); //Realiza inserção na tabela
     }
 
-    public void pesquisarReserva(Banco db, int reservaId) throws SQLException { //Apenas clientes
-        String query = String.format("SELECT * FROM Reserva WHERE id_reserva = %d", reservaId); //Busca a reserva na tavbela atraves do seu ID
+    public void pesquisarReserva(Banco db, int reservaId, String usuarioId) throws SQLException { //Apenas clientes
+        String query = String.format("SELECT * FROM Reserva WHERE id_reserva = %d AND (cliente = '%s' OR barbearia = '%s')", reservaId, usuarioId, usuarioId);
+//Busca a reserva na tavbela atraves do seu ID
         ResultSet rs = db.querySearch(query); //O resultado da busca é armazenado em rs (resultado da consulta)
     
         if (rs.next()) { // Verifica se há uma linha no ResultSet

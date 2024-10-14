@@ -129,7 +129,7 @@ public void exibirMenu() throws SQLException {
                     System.out.println("Informe o ID da reserva: ");
                     id = scanner.nextInt();
                     scanner.nextLine();
-                    reserva.pesquisarReserva(db, id);
+                    reserva.pesquisarReserva(db, id, barbearia.getCnpj());
                     break;
                 case 5:
                     System.out.println("Opção 5 selecionada: Cancelar reserva");

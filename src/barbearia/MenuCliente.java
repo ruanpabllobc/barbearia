@@ -101,7 +101,7 @@ public class MenuCliente {
                         System.out.println("Informe o ID da sua reserva: ");
                         id = scanner.nextInt();
                         scanner.nextLine();
-                        reserva.pesquisarReserva(db, id);
+                        reserva.pesquisarReserva(db, id, cliente.getCpf());
                         break;
                     case 4:
                         System.out.println("Opção 4 selecionada: Minhas Reservas");
