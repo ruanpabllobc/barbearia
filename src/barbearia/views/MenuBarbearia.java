@@ -102,6 +102,9 @@ public class MenuBarbearia {
                         break;
                     case 3:
                         System.out.println("Opção 3 selecionada: Atualizar reserva");
+                        cpf = Validador.obterEntradaNumericaValida(scanner, "Digite o CPF do cliente");
+                        reserva.listarReservas(db, cpf);
+                        id = Validador.obterIntValido(scanner, "Digite o ID da reserva:");
                         dataHora = Validador.converterData(scanner);
                         while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj())) {
                             System.out.println("Data ocupada. Tente outra data.");
@@ -116,8 +119,8 @@ public class MenuBarbearia {
                         reserva.setMetodoPagamento(pagamento);
                         reserva.setIdBarbearia(barbearia.getCnpj());
                         reserva.setIdServico(servicos);
-                        reserva.cadastrarReserva(db);
-                        System.out.println("Reserva cadastrada");
+                        reserva.editarReserva(db);
+                        System.out.println("Reserva atualizada");
                         break; // Adicionado break aqui
                     case 4:
                         System.out.println("Opção 4 selecionada: Buscar reserva");
