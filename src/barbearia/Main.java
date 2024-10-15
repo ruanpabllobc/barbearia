@@ -8,7 +8,6 @@ import src.barbearia.views.MenuBarbearia;
 import src.barbearia.views.MenuCliente;
 import src.barbearia.controllers.Validador;
 import src.database.Banco;
-
 import java.util.Scanner;
 
 public class Main {
