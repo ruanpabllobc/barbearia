@@ -102,9 +102,9 @@ public class MenuBarbearia {
                         break;
                     case 3:
                         System.out.println("Opção 3 selecionada: Atualizar reserva");
-                        cpf = Validador.obterEntradaNumericaValida(scanner, "Digite o CPF do cliente");
+                        cpf = Validador.obterEntradaNumericaValida(scanner, "Digite o CPF do cliente: ");
                         reserva.listarReservas(db, cpf);
-                        id = Validador.obterIntValido(scanner, "Digite o ID da reserva:");
+                        id = Validador.obterIntValido(scanner, "Digite o ID da reserva: ");
                         dataHora = Validador.converterData(scanner);
                         while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj())) {
                             System.out.println("Data ocupada. Tente outra data.");
