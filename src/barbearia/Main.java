@@ -41,7 +41,7 @@ public class Main {
                     break;
                 case 3:
                     System.out.println("INSIRA OS DADOS PARA CADASTRO");
-                    cpf = Validador.obterEntradaNumericaValida(scanner, "Digite seu CPF: ");
+                    cpf = Validador.obterCPFValido(scanner);
                     nome = Validador.obterEntradaValida(scanner, "Digite seu nome: ");
                     senha = Validador.obterSenhaValida(scanner);
                     email = Validador.obterEntradaValida(scanner, "Digite seu e-mail: ");
@@ -56,7 +56,7 @@ public class Main {
                     break;
                 case 4:
                     System.out.println("INSIRA OS DADOS PARA CADASTRO");
-                    cnpj = Validador.obterEntradaNumericaValida(scanner, "Digite seu CNPJ: ");
+                    cnpj = Validador.obterCNPJValido(scanner);
                     nome = Validador.obterEntradaValida(scanner, "Digite seu nome: ");
                     senha = Validador.obterSenhaValida(scanner);
                     anoAbertura = Validador.obterIntValido(scanner, "Digite o Digite o ano de abertura: ");

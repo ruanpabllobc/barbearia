@@ -5,6 +5,45 @@ import java.util.Scanner;
 
 public class Validador {
 
+    public static String obterCPFValido(Scanner scanner) {
+        String cpf;
+        do {
+            System.out.print("Digite o CPF (somente números): ");
+            cpf = scanner.nextLine().trim();
+    
+            // Remove quaisquer caracteres não numéricos
+            String cpfNumeros = cpf.replaceAll("\\D", "");
+    
+            // Valida a quantidade de dígitos
+            if (cpfNumeros.length() != 11) {
+                System.out.println("CPF inválido! O CPF deve conter 11 dígitos numéricos.");
+                cpf = null; // Define como null para continuar o loop
+            }
+        } while (cpf == null);
+        
+        return cpf;
+    }
+
+    public static String obterCNPJValido(Scanner scanner) {
+        String cnpj;
+        do {
+            System.out.print("Digite o CNPJ (somente números): ");
+            cnpj = scanner.nextLine().trim();
+    
+            // Remove quaisquer caracteres não numéricos
+            String cnpjNumeros = cnpj.replaceAll("\\D", "");
+    
+            // Valida a quantidade de dígitos
+            if (cnpjNumeros.length() != 14) {
+                System.out.println("CNPJ inválido! O CNPJ deve conter 14 dígitos numéricos.");
+                cnpj = null; // Define como null para continuar o loop
+            }
+        } while (cnpj == null);
+        
+        return cnpj;
+    }    
+    
+
     // Obtém uma entrada válida do usuário
     public static String obterEntradaValida(Scanner scanner, String mensagem) {
         String entrada;

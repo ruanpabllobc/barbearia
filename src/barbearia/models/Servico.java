@@ -62,7 +62,7 @@ public class Servico {
 
     // Método para remover um serviço, verificando se pertence à barbearia
     public void removerServico(Banco db, String cnpj) {
-        String query = String.format("DELETE FROM Servico WHERE nome_servico = '%s'", getNomeServico(), cnpj);
+        String query = String.format("DELETE FROM Servico WHERE nome_servico = '%s' AND cnpj = '%s'", getNomeServico(), cnpj);
         db.queryUpdate(query);
     }
 
