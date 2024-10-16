@@ -44,7 +44,6 @@ public class MenuBarbearia {
         senha = Validador.obterEntradaValida(scanner, "Digite sua senha: ");
 
         if (barbearia.usuarioLogin(senha)) {
-            System.out.println("Senha correta!");
             do {
                 System.out.println("------------------------");
                 System.out.println("1. ATUALIZAR PERFIL");
@@ -133,7 +132,6 @@ public class MenuBarbearia {
                         id = Validador.obterIntValido(scanner, "Digite o ID da sua reserva: ");
                         reserva.setId(id);
                         reserva.removerReserva(db, barbearia.getCnpj());
-                        System.out.println("Reserva cancelada");
                         break;
                     case 6:
                         System.out.println("Opção 6 selecionada: Listar reservas");

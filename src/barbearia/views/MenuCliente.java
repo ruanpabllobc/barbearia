@@ -43,7 +43,6 @@ public class MenuCliente {
         cliente.pesquisarCliente(db, cpf);
         senha = Validador.obterEntradaValida(scanner, "Digite a sua senha: ");
         if (cliente.usuarioLogin(senha)) {
-            System.out.println("Senha correta!");
             do {
                 System.out.println("------------------------");
                 System.out.println("1. ATUALIZAR PERFIL");

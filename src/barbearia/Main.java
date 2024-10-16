@@ -44,8 +44,8 @@ public class Main {
                     System.out.println("INSIRA OS DADOS PARA CADASTRO");
                     cpf = Validador.obterEntradaNumericaValida(scanner, "Digite seu CPF: ");
                     nome = Validador.obterEntradaValida(scanner, "Digite seu nome: ");
-                    email = Validador.obterEntradaValida(scanner, "Digite seu e-mail: ");
                     senha = Validador.obterSenhaValida(scanner);
+                    email = Validador.obterEntradaValida(scanner, "Digite seu e-mail: ");
                     telefone = Validador.obterEntradaNumericaValida(scanner, "Digite seu telefone: ");
                     cliente.setCpf(cpf);
                     cliente.setNome(nome);

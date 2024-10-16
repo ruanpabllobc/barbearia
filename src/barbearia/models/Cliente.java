@@ -21,8 +21,7 @@ public class Cliente extends Usuario {
     public void cadastrarCliente(Banco db) {
         String query = String.format(
                 "INSERT INTO Cliente (nome, email, senha, telefone, cpf) VALUES ('%s', '%s', '%s', '%s', '%s')",
-                getNome(), getEmail(), getSenha(), getTelefone(), getCpf()); // Insere um Get para cada coluna da tabela
-                                                                             // cliente
+                getNome(), getEmail(), getSenha(), getTelefone(), getCpf());
         db.queryUpdate(query); // Realiza a atualização da tabela
     }
 

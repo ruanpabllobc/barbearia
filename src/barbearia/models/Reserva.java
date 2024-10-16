@@ -65,9 +65,15 @@ public class Reserva {
     
     public void listarReservas(Banco db, String usuarioId) throws SQLException {
         String query = String.format("SELECT * FROM Reserva WHERE (cliente = '%s' OR barbearia = '%s')", usuarioId, usuarioId);
-        ResultSet rs = db.querySearch(query); //rs obtem o resultado da busca
-
-        while (rs.next()){ //Percore cada linha da lista e atualiza seus dados
+        ResultSet rs = db.querySearch(query); // rs obtém o resultado da busca
+    
+        // Verifica se o ResultSet está vazio
+        if (!rs.isBeforeFirst()) { // Se não houver linhas no ResultSet
+            System.out.println("Nenhuma reserva encontrada para o usuário com ID: " + usuarioId);
+            return; // Sai do método se não houver reservas
+        }
+    
+        while (rs.next()) { // Percorre cada linha da lista e atualiza seus dados
             setId(rs.getInt("id_reserva"));
             String datast = rs.getString("data_reserva");
             Date data = Date.valueOf(datast);
@@ -76,9 +82,9 @@ public class Reserva {
             setIdBarbearia(rs.getString("barbearia"));
             setIdServico(rs.getString("nome_servico"));
             setIdCliente(rs.getString("cliente"));
-            System.out.println(toString()); //Imprime os dados da linha
-            }
-    }
+            System.out.println(toString()); // Imprime os dados da linha
+        }
+    }    
 
     public void editarReserva(Banco db) {
         String query = String.format("UPDATE Reserva SET nome_servico = '%s', data_reserva = '%s', metodo_pagamento = '%s', barbearia = '%s', cliente = '%s' WHERE id_reserva = %d", getIdServico(), getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getId()); //Preenche cada campo da tabela com o metodo Get
