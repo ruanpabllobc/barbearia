@@ -50,7 +50,7 @@ public class Servico {
     }  
 
     public void editarServico(Banco db, String cnpj, String nomeServico) {
-        String query = String.format("UPDATE Servico SET nome_servico = '%s', valor_servico = '%f' WHERE nome_servico = '%s' and barbearia = '%s'", getNomeServico(), getValorServico(), nomeServico, cnpj); //Procura a mesa de acordo com o numero e CNPJ e atualiza
+        String query = String.format("UPDATE Servico SET nome_servico = '%s', valor_servico = '%.2f' WHERE nome_servico = '%s' and barbearia = '%s'", getNomeServico(), getValorServico(), nomeServico, cnpj); //Procura a mesa de acordo com o numero e CNPJ e atualiza
         db.queryUpdate(query); //Atualiza no banco
     }
 

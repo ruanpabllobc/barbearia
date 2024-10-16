@@ -143,21 +143,19 @@ public class MenuBarbearia {
                         System.out.println("Opção 7 selecionada: Cadastrar serviços");
                         nome = Validador.obterEntradaValida(scanner, "Digite o nome: ");
                         valor = Validador.obterFloatValido(scanner, "Digite o valor: ");
-                        scanner.nextLine();
                         barbearia.setCnpj(barbearia.getCnpj());
                         servico.setNomeServico(nome);
                         servico.setValorServico(valor);
                         servico.setIdBarbearia(barbearia.getCnpj());
                         servico.cadastrarServico(db);
-                        System.out.println("Serviço atualizado");
+                        System.out.println("Serviço cadastrado");
                         break;
                     case 8:
                         System.out.println("Opção 8 selecionada: Atualizar serviços");
+                        servico.listarServicos(db, cnpj);
                         servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         nome = Validador.obterEntradaValida(scanner, "Digite o novo nome do serviço: ");
-                        System.out.println("Digite o novo valor: ");
-                        valor = scanner.nextFloat();
-                        scanner.nextLine();
+                        valor = Validador.obterFloatValido(scanner, "Digite o valor: ");
                         servico.setNomeServico(nome);
                         servico.setValorServico(valor);
                         servico.setIdBarbearia(barbearia.getCnpj());
