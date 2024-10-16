@@ -3,11 +3,9 @@ package src.barbearia.models;
 import java.sql.Date;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-
 import src.database.Banco;
 
 public class Reserva {
-
     private int id;
     private Date dataReserva;
     private String metodoPagamento;
@@ -21,23 +19,22 @@ public class Reserva {
         this.idCliente = idCliente;
         this.idServico = idServico;
     }
-    
-    public Reserva(){ //Construtor auxiliar
+
+    public Reserva() {
     }
 
+    // Método para cadastrar uma nova reserva no banco de dados
     public void cadastrarReserva(Banco db) {
-        String query = String.format("INSERT INTO Reserva (data_reserva, metodo_pagamento, barbearia, cliente, nome_servico) VALUES ('%tF', '%s', '%s', '%s', '%s')", 
-        getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getIdServico()); //Preenche cada campo da tabela Reserva atraves do metodo Get
-        db.queryUpdate(query); //Realiza inserção na tabela
+        String query = String.format("INSERT INTO Reserva (data_reserva, metodo_pagamento, barbearia, cliente, nome_servico) VALUES ('%tF', '%s', '%s', '%s', '%s')", getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getIdServico());
+        db.queryUpdate(query);
     }
 
-    public void pesquisarReserva(Banco db, int reservaId, String usuarioId) throws SQLException { //Apenas clientes
+    public void pesquisarReserva(Banco db, int reservaId, String usuarioId) throws SQLException {
         String query = String.format("SELECT * FROM Reserva WHERE id_reserva = %d AND (cliente = '%s' OR barbearia = '%s')", reservaId, usuarioId, usuarioId);
-//Busca a reserva na tavbela atraves do seu ID
-        ResultSet rs = db.querySearch(query); //O resultado da busca é armazenado em rs (resultado da consulta)
+        ResultSet rs = db.querySearch(query);
     
-        if (rs.next()) { // Verifica se há uma linha no ResultSet
-            setId(rs.getInt("id_reserva")); // Atualiza cada valor de cada coluna da tabela
+        if (rs.next()) { // Verifica se há resultados
+            setId(rs.getInt("id_reserva"));
             String datast = rs.getString("data_reserva");
             Date data = Date.valueOf(datast);
             setDataReserva(data);
@@ -47,33 +44,29 @@ public class Reserva {
             setIdServico(rs.getString("nome_servico"));
             System.out.println(toString());
         } else {
-            // Mensagem de erro caso não encontre uma reserva com o ID fornecido
             System.out.println("Nenhuma reserva encontrada com o ID " + reservaId);
         }
     }
 
+    // Método para verificar se há reservas em uma determinada data para uma barbearia específica
     public static boolean pesquisarReservaNoDia(Banco db, Date data, String barbeariaId) throws SQLException {
-        String query = String.format("SELECT * FROM Reserva WHERE data_reserva = '%tF' and barbearia = '%s'", data, barbeariaId); //Realiza uma busca para a mesa na data informada
+        String query = String.format("SELECT * FROM Reserva WHERE data_reserva = '%tF' and barbearia = '%s'", data, barbeariaId);
         ResultSet rs = db.querySearch(query);
        
-        if (rs.next()){ //Verifica se existe reserva na mesa para aquela data
-            return true; //Existe reserva na data
-        }
-        return false; //Não existe reserva para a data
+        return rs.next();
     }
     
-    
+    // Método para listar todas as reservas de um usuário específico
     public void listarReservas(Banco db, String usuarioId) throws SQLException {
         String query = String.format("SELECT * FROM Reserva WHERE (cliente = '%s' OR barbearia = '%s')", usuarioId, usuarioId);
-        ResultSet rs = db.querySearch(query); // rs obtém o resultado da busca
+        ResultSet rs = db.querySearch(query);
     
-        // Verifica se o ResultSet está vazio
-        if (!rs.isBeforeFirst()) { // Se não houver linhas no ResultSet
+        if (!rs.isBeforeFirst()) { // Verifica se não há resultados
             System.out.println("Nenhuma reserva encontrada para o usuário com ID: " + usuarioId);
-            return; // Sai do método se não houver reservas
+            return;
         }
     
-        while (rs.next()) { // Percorre cada linha da lista e atualiza seus dados
+        while (rs.next()) {
             setId(rs.getInt("id_reserva"));
             String datast = rs.getString("data_reserva");
             Date data = Date.valueOf(datast);
@@ -82,27 +75,28 @@ public class Reserva {
             setIdBarbearia(rs.getString("barbearia"));
             setIdServico(rs.getString("nome_servico"));
             setIdCliente(rs.getString("cliente"));
-            System.out.println(toString()); // Imprime os dados da linha
+            System.out.println(toString());
         }
     }    
 
+    // Método para editar uma reserva existente
     public void editarReserva(Banco db) {
-        String query = String.format("UPDATE Reserva SET nome_servico = '%s', data_reserva = '%s', metodo_pagamento = '%s', barbearia = '%s', cliente = '%s' WHERE id_reserva = %d", getIdServico(), getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getId()); //Preenche cada campo da tabela com o metodo Get
-        db.queryUpdate(query); //Atualiza a tabela
+        String query = String.format("UPDATE Reserva SET nome_servico = '%s', data_reserva = '%s', metodo_pagamento = '%s', barbearia = '%s', cliente = '%s' WHERE id_reserva = %d", getIdServico(), getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getId());
+        db.queryUpdate(query);
     }
 
+    // Método para remover uma reserva, verificando se pertence ao cliente ou barbearia
     public void removerReserva(Banco db, String usuarioId) {
         String query = String.format("DELETE FROM Reserva WHERE id_reserva = %d AND (cliente = '%s' OR barbearia = '%s')", getId(), usuarioId, usuarioId); 
-        int rowsAffected = db.queryUpdate(query); // Executa a atualização e captura o número de linhas afetadas
+        int rowsAffected = db.queryUpdate(query);
     
         if (rowsAffected == 0) {
             System.out.println("Reserva não encontrada.");
         } else {
-            System.out.println("Reserva removida com sucesso."); // Mensagem de sucesso
+            System.out.println("Reserva removida com sucesso.");
         }
     }
     
-
     public int getId() {
         return id;
     }
@@ -153,7 +147,6 @@ public class Reserva {
 
     @Override
     public String toString() {
-        return "Reserva [id=" + id + ", dataReserva=" + dataReserva + ", metodoPagamento=" + metodoPagamento
-                + ", idBarbearia=" + idBarbearia + ", idCliente=" + idCliente + ", idServico=" + idServico + "]";
+        return "Reserva [id=" + id + ", dataReserva=" + dataReserva + ", metodoPagamento=" + metodoPagamento + ", idBarbearia=" + idBarbearia + ", idCliente=" + idCliente + ", idServico=" + idServico + "]";
     }
 }

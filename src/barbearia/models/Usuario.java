@@ -11,10 +11,11 @@ public class Usuario {
         this.email = email;
     }
 
-    public Usuario() { // Construtor auxiliar
+    public Usuario() {
     }
 
-    public boolean usuarioLogin(String senha) { // Metodo de login, compara a senha digitada com a senha guardada
+    // Metodo de login, compara a senha digitada com a senha guardada
+    public boolean usuarioLogin(String senha) {
         if (senha.equals(getSenha())) {
             System.out.println("\nLogin realizado com sucesso!");
             return true;
@@ -24,7 +25,6 @@ public class Usuario {
         }
     }
 
-    // Metodos Get e Set
     public String getNome() {
         return nome;
     }

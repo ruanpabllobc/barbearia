@@ -2,14 +2,12 @@ package src.barbearia.views;
 
 import java.sql.Date;
 import java.sql.SQLException;
-
 import src.barbearia.controllers.Validador;
 import src.barbearia.models.Barbearia;
 import src.barbearia.models.Cliente;
 import src.barbearia.models.Reserva;
 import src.barbearia.models.Servico;
 import src.database.Banco;
-
 import java.util.Scanner;
 
 public class MenuCliente {
@@ -21,7 +19,6 @@ public class MenuCliente {
     private Servico servico;
     private Reserva reserva;
 
-    // Construtor para inicializar os objetos
     public MenuCliente(Banco db) {
         this.scanner = new Scanner(System.in);
         this.db = db;
@@ -31,7 +28,6 @@ public class MenuCliente {
         this.reserva = new Reserva();
     }
 
-    // Método que exibe o menu e trata as opções
     public void exibirMenu() throws SQLException {
 
         String nome, email, senha, telefone, cnpj, pagamento, servicos, cpf, confirma;
@@ -53,9 +49,8 @@ public class MenuCliente {
                 System.out.println("6. DELETAR PERFIL");
                 System.out.println("0. SAIR");
                 System.out.println("------------------------");
-    
                 opcao = Validador.obterIntValido(scanner, "Digite a opção desejada: ");
-                    
+
                 switch (opcao) {
                     case 1:
                         System.out.println("Opção 1 selecionada: Atualizar perfil");
@@ -108,17 +103,16 @@ public class MenuCliente {
                         reserva.removerReserva(db, cliente.getCpf());
                         break;
                     case 6:
-                    System.out.println("Opção 11 selecionada: Remover perfil");
-                    System.out.print("Você tem certeza que deseja remover o perfil? (s/n): ");
-                    confirma = scanner.nextLine().trim().toLowerCase(); // Ler a resposta do usuário
-                    // Verifica a resposta do usuário
-                    if (confirma.equals("s")) {
-                        cliente.removerCliente(db);// Chama o método para remover
-                        System.out.println("APAGANDO DADOS...");
-                        System.exit(0); // Encerra o programa
-                    } else {
-                        System.out.println("Ação cancelada. O perfil não foi removido."); // Mensagem de cancelamento
-                    }
+                        System.out.println("Opção 11 selecionada: Remover perfil");
+                        System.out.print("Você tem certeza que deseja remover o perfil? (s/n): ");
+                        confirma = scanner.nextLine().trim().toLowerCase();
+                        if (confirma.equals("s")) {
+                            cliente.removerCliente(db);
+                            System.out.println("APAGANDO DADOS...");
+                            System.exit(0);
+                        } else {
+                            System.out.println("Ação cancelada. O perfil não foi removido.");
+                        }
                         break;
                     default:
                         System.out.println("Opção inválida. Tente novamente.");

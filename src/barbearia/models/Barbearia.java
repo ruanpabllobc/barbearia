@@ -6,30 +6,32 @@ import src.database.Banco;
 
 public class Barbearia extends Usuario {
 
-    private String endereco; //unidade
-    private int anoAbertura;
+    private String endereco; 
+    private int anoAbertura; 
     private String cnpj;
     
     public Barbearia(String nome, String senha, String endereco, String email, int anoAbertura, String cnpj) {
-        super(nome, senha,email);
+        super(nome, senha, email);
         this.endereco = endereco;
         this.anoAbertura = anoAbertura;
         this.cnpj = cnpj;
     }
     
-    public Barbearia(){ //Construtor auxiliar do Main
+    public Barbearia() {
     }
     
+    // Método para cadastrar uma nova barbearia no banco de dados
     public void cadastrarBarbearia(Banco db) {
-        String query = String.format("INSERT INTO Barbearia (nome, endereco, senha, email, ano_abertura, cnpj) VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(),getCnpj()); //Cadastra uma barbearia preenchendo os valores da coluna Barbearia pelo metodo Get
-        db.queryUpdate(query); //Atualiza no banco
+        String query = String.format("INSERT INTO Barbearia (nome, endereco, senha, email, ano_abertura, cnpj) VALUES ('%s', '%s', '%s', '%s', '%d', '%s')", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(), getCnpj());
+        db.queryUpdate(query);
     }
 
     public void pesquisarBarbearia(Banco db, String cnpj) throws SQLException {
-        String query = String.format("SELECT * FROM Barbearia WHERE cnpj = '%s'", cnpj); //Busca um restaurante pelo CNPJ
-        ResultSet rs = db.querySearch(query); //Recebe o resultado da pesquisa
+        String query = String.format("SELECT * FROM Barbearia WHERE cnpj = '%s'", cnpj);
+        ResultSet rs = db.querySearch(query);
         
-        setNome(rs.getString("nome")); //Atualiza os valores e imprime
+        // Atualiza os valores da barbearia encontrada
+        setNome(rs.getString("nome"));
         setEndereco(rs.getString("endereco"));
         setSenha(rs.getString("senha"));
         setEmail(rs.getString("email"));
@@ -38,11 +40,12 @@ public class Barbearia extends Usuario {
     }
 
     public void listarBarbearias(Banco db) throws SQLException {
-        String query = "SELECT * FROM Barbearia"; //Seleciona todos os itens da tabela Barbearia
-        ResultSet rs = db.querySearch(query); //Recebe o resultado
+        String query = "SELECT * FROM Barbearia";
+        ResultSet rs = db.querySearch(query);
 
-        while (rs.next()) { //Próxima linha
-            setNome(rs.getString("nome")); //Atualiza e imprime
+        while (rs.next()) {
+            // Atualiza os valores da barbearia e imprime
+            setNome(rs.getString("nome"));
             setEndereco(rs.getString("endereco"));
             setSenha(rs.getString("senha"));
             setEmail(rs.getString("email"));
@@ -52,17 +55,18 @@ public class Barbearia extends Usuario {
         }
     }
 
+    // Método para editar os dados de uma barbearia existente
     public void editarBarbearia(Banco db) {
-        String query = String.format("UPDATE Barbearia SET nome = '%s', endereco = '%s', senha = '%s', email = '%s', ano_abertura = '%d' WHERE cnpj = '%s'", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(), getCnpj()); //Preenche os itens da tabela Barbearia com o metodo Get de cada atributo
-        db.queryUpdate(query); //Atualiza
-    }
-
-    public void removerBarbearia(Banco db) {
-        String query = String.format("DELETE FROM Barbearia WHERE cnpj = '%s'", getCnpj()); //Remove uma Barbearia encontrado na tabela atraves do seu CNPJ
+        String query = String.format("UPDATE Barbearia SET nome = '%s', endereco = '%s', senha = '%s', email = '%s', ano_abertura = '%d' WHERE cnpj = '%s'", getNome(), getEndereco(), getSenha(), getEmail(), getAnoAbertura(), getCnpj());
         db.queryUpdate(query);
     }
 
-    //Metodos Get e Set
+    // Método para remover uma barbearia pelo CNPJ
+    public void removerBarbearia(Banco db) {
+        String query = String.format("DELETE FROM Barbearia WHERE cnpj = '%s'", getCnpj());
+        db.queryUpdate(query);
+    }
+
     public String getEndereco() {
         return endereco;
     }
@@ -71,11 +75,11 @@ public class Barbearia extends Usuario {
         this.endereco = endereco;
     }
 
-    public String getCnpj(){
+    public String getCnpj() {
         return cnpj;
     }
 
-    public void setCnpj(String cnpj){
+    public void setCnpj(String cnpj) {
         this.cnpj = cnpj;
     }
 
@@ -87,9 +91,9 @@ public class Barbearia extends Usuario {
         this.anoAbertura = anoAbertura;
     }
 
-    //To String
+    // Retorna uma representação em string da barbearia
     @Override
     public String toString() {
-        return getNome() + ", CNPJ=" +  getCnpj();
+        return getNome() + ", CNPJ=" + getCnpj();
     }
 }

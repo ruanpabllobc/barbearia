@@ -2,14 +2,12 @@ package src.barbearia.views;
 
 import java.sql.Date;
 import java.sql.SQLException;
-
 import src.barbearia.controllers.Validador;
 import src.barbearia.models.Barbearia;
 import src.barbearia.models.Cliente;
 import src.barbearia.models.Reserva;
 import src.barbearia.models.Servico;
 import src.database.Banco;
-
 import java.util.Scanner;
 
 public class MenuBarbearia {
@@ -21,7 +19,6 @@ public class MenuBarbearia {
     private Servico servico;
     private Reserva reserva;
 
-    // Construtor para inicializar os objetos
     public MenuBarbearia(Banco db) {
         this.scanner = new Scanner(System.in);
         this.db = db;
@@ -31,7 +28,6 @@ public class MenuBarbearia {
         this.reserva = new Reserva();
     }
 
-    // Método que exibe o menu e trata as opções
     public void exibirMenu() throws SQLException {
         String cnpj, cpf, nome, email, senha, endereco, pagamento, servicos, confirma;
         float valor;
@@ -59,14 +55,12 @@ public class MenuBarbearia {
                 System.out.println("11. EXCLUIR PERFIL");
                 System.out.println("0. SAIR");
                 System.out.println("------------------------");
-
                 opcao = Validador.obterIntValido(scanner, "Digite a opção desejada: ");
 
                 switch (opcao) {
                     case 1:
                         System.out.println("Opção 1 selecionada: Atualizar perfil");
                         nome = Validador.obterEntradaValida(scanner, "Digite o novo nome: ");
-                        System.out.println("Digite o novo email: ");
                         email = Validador.obterEntradaValida(scanner, "Digite o novo email: ");
                         senha = Validador.obterSenhaValida(scanner);
                         endereco = Validador.obterEntradaValida(scanner, "Digite o novo endereço: ");
@@ -175,18 +169,15 @@ public class MenuBarbearia {
                     case 11:
                         System.out.println("Opção 11 selecionada: Remover perfil");
                         System.out.print("Você tem certeza que deseja remover o perfil? (s/n): ");
-                        confirma = scanner.nextLine().trim().toLowerCase(); // Ler a resposta do usuário
-                        // Verifica a resposta do usuário
+                        confirma = scanner.nextLine().trim().toLowerCase(); 
                         if (confirma.equals("s")) {
-                            barbearia.removerBarbearia(db); // Chama o método para remover a barbearia
+                            barbearia.removerBarbearia(db);
                             System.out.println("APAGANDO DADOS...");
-                            System.exit(0); // Encerra o programa
+                            System.exit(0);
                         } else {
-                            System.out.println("Ação cancelada. O perfil não foi removido."); // Mensagem de
-                                                                                              // cancelamento
+                            System.out.println("Ação cancelada. O perfil não foi removido.");
                         }
                         break;
-
                     default:
                         System.out.println("Opção inválida. Tente novamente.");
                 }

@@ -1,7 +1,6 @@
 package src.barbearia;
 
 import java.sql.SQLException;
-
 import src.barbearia.models.Cliente;
 import src.barbearia.models.Barbearia;
 import src.barbearia.views.MenuBarbearia;
