@@ -47,9 +47,14 @@ public class MenuCliente {
                 System.out.println("4. MINHAS RESERVAS");
                 System.out.println("5. CANCELAR RESERVA");
                 System.out.println("6. DELETAR PERFIL");
-                System.out.println("0. SAIR");
+                System.out.println("0. VOLTAR");
                 System.out.println("------------------------");
                 opcao = Validador.obterIntValido(scanner, "Digite a opção desejada: ");
+
+                if (opcao == 0) {
+                    System.out.println("Voltando ao menu principal...");
+                    return;  // Retorna ao menu principal
+                }
 
                 switch (opcao) {
                     case 1:

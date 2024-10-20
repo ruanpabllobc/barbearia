@@ -53,9 +53,14 @@ public class MenuBarbearia {
                 System.out.println("9. LISTAR SERVIÇOS");
                 System.out.println("10. REMOVER SERVIÇO");
                 System.out.println("11. EXCLUIR PERFIL");
-                System.out.println("0. SAIR");
+                System.out.println("0. VOLTAR");
                 System.out.println("------------------------");
                 opcao = Validador.obterIntValido(scanner, "Digite a opção desejada: ");
+
+                if (opcao == 0) {
+                    System.out.println("Voltando ao menu principal...");
+                    return;  // Retorna ao menu principal
+                }
 
                 switch (opcao) {
                     case 1:
