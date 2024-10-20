@@ -1,7 +1,10 @@
 package src.barbearia.controllers;
 
-import java.sql.Date; 
+import java.sql.Date;
 import java.util.Scanner;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 
 public class Validador {
 
@@ -10,17 +13,17 @@ public class Validador {
         do {
             System.out.print("Digite o CPF (somente números): ");
             cpf = scanner.nextLine().trim();
-    
+
             // Remove quaisquer caracteres não numéricos
             String cpfNumeros = cpf.replaceAll("\\D", "");
-    
+
             // Valida a quantidade de dígitos
             if (cpfNumeros.length() != 11) {
                 System.out.println("CPF inválido! O CPF deve conter 11 dígitos numéricos.");
                 cpf = null; // Define como null para continuar o loop
             }
         } while (cpf == null);
-        
+
         return cpf;
     }
 
@@ -29,20 +32,19 @@ public class Validador {
         do {
             System.out.print("Digite o CNPJ (somente números): ");
             cnpj = scanner.nextLine().trim();
-    
+
             // Remove quaisquer caracteres não numéricos
             String cnpjNumeros = cnpj.replaceAll("\\D", "");
-    
+
             // Valida a quantidade de dígitos
             if (cnpjNumeros.length() != 14) {
                 System.out.println("CNPJ inválido! O CNPJ deve conter 14 dígitos numéricos.");
                 cnpj = null; // Define como null para continuar o loop
             }
         } while (cnpj == null);
-        
+
         return cnpj;
-    }    
-    
+    }
 
     // Obtém uma entrada válida do usuário
     public static String obterEntradaValida(Scanner scanner, String mensagem) {
@@ -136,8 +138,43 @@ public class Validador {
 
     // Converte a data
     public static Date converterData(Scanner scanner) {
-        System.out.println("Informe a data no formato AAAA-MM-DD: ");
-        String dataString = scanner.nextLine();
-        return Date.valueOf(dataString);
+        Date data = null;
+        boolean valido = false;
+
+        while (!valido) {
+            try {
+                System.out.println("Informe a data no formato AAAA-MM-DD: ");
+                String dataString = scanner.nextLine();
+
+                // Usando Date.valueOf() para converter a string em Date
+                data = Date.valueOf(dataString);
+                valido = true; // Se a conversão for bem-sucedida, sai do loop
+            } catch (IllegalArgumentException e) {
+                System.out.println("Data inválida. Por favor, use o formato AAAA-MM-DD.");
+            }
+        }
+
+        return data;
+    }
+
+    // Converte a hora
+    public static LocalTime converterHora(Scanner scanner) {
+        LocalTime hora = null;
+        boolean valido = false;
+
+        while (!valido) {
+            try {
+                System.out.println("Informe a hora no formato HH:MM: ");
+                String horaString = scanner.nextLine();
+
+                // Usando LocalTime.parse() para converter a string em LocalTime
+                hora = LocalTime.parse(horaString, DateTimeFormatter.ofPattern("HH:mm"));
+                valido = true; // Se a conversão for bem-sucedida, sai do loop
+            } catch (DateTimeParseException e) {
+                System.out.println("Hora inválida. Por favor, use o formato HH:MM.");
+            }
+        }
+
+        return hora;
     }
 }

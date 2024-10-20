@@ -9,6 +9,7 @@ import src.barbearia.models.Reserva;
 import src.barbearia.models.Servico;
 import src.database.Banco;
 import java.util.Scanner;
+import java.time.LocalTime;
 
 public class MenuBarbearia {
 
@@ -32,6 +33,7 @@ public class MenuBarbearia {
         String cnpj, cpf, nome, email, senha, endereco, pagamento, servicos, confirma;
         float valor;
         Date dataHora;
+        LocalTime hora;
         int opcao, id;
 
         cnpj = Validador.obterEntradaValida(scanner, "Digite seu CNPJ: ");
@@ -81,9 +83,11 @@ public class MenuBarbearia {
                         cliente.listarClientes(db);
                         cpf = Validador.obterEntradaNumericaValida(scanner, "Digite o CPF do cliente: ");
                         dataHora = Validador.converterData(scanner);
-                        while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj())) {
-                            System.out.println("Data ocupada. Tente outra data.");
+                        hora = Validador.converterHora(scanner);
+                        while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj(), hora)) {
+                            System.out.println("Data ou hora ocupada. Tente outra data.");
                             dataHora = Validador.converterData(scanner);
+                            hora = Validador.converterHora(scanner);
                         }
                         System.out.println("Data disponível para a reserva!");
                         pagamento = Validador.obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
@@ -104,11 +108,13 @@ public class MenuBarbearia {
                         reserva.listarReservas(db, cpf);
                         id = Validador.obterIntValido(scanner, "Digite o ID da reserva: ");
                         dataHora = Validador.converterData(scanner);
-                        while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj())) {
-                            System.out.println("Data ocupada. Tente outra data.");
+                        hora = Validador.converterHora(scanner);
+                        while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj(), hora)) {
+                            System.out.println("Data ou hora ocupada. Tente outra data.");
                             dataHora = Validador.converterData(scanner);
+                            hora = Validador.converterHora(scanner);
                         }
-                        System.out.println("Data disponível para a reserva!");
+                        System.out.println("Data e hora disponível para a reserva!");
                         pagamento = Validador.obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
                         servico.listarServicos(db, barbearia.getCnpj());
                         servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");

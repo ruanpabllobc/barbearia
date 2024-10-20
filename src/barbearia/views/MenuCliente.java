@@ -9,6 +9,7 @@ import src.barbearia.models.Reserva;
 import src.barbearia.models.Servico;
 import src.database.Banco;
 import java.util.Scanner;
+import java.time.LocalTime;
 
 public class MenuCliente {
 
@@ -30,8 +31,9 @@ public class MenuCliente {
 
     public void exibirMenu() throws SQLException {
 
-        String nome, email, senha, telefone, cnpj, pagamento, servicos, cpf, confirma;
+        String nome, email, senha, telefone, cnpj, pagamento, tipoServico, cpf, confirma;
         Date dataHora;
+        LocalTime hora;
         int opcao, id;
 
         cpf = Validador.obterEntradaValida(scanner, "Digite o seu CPF: ");
@@ -75,19 +77,22 @@ public class MenuCliente {
                         barbearia.listarBarbearias(db);
                         cnpj = Validador.obterEntradaValida(scanner, "Digite o CNPJ da barbearia: ");
                         dataHora = Validador.converterData(scanner);
-                        while (Reserva.pesquisarReservaNoDia(db, dataHora, cnpj)) {
-                            System.out.println("Data ocupada. Tente outra data.");
+                        hora = Validador.converterHora(scanner);
+                        while (Reserva.pesquisarReservaNoDia(db, dataHora, cnpj, hora)) {
+                            System.out.println("Data ou hora ocupada. Tente outra data.");
                             dataHora = Validador.converterData(scanner);
+                            hora = Validador.converterHora(scanner);
                         }
-                        System.out.println("Data disponível para a reserva!");
+                        System.out.println("Data e hora disponível para a reserva!");
                         pagamento = Validador.obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
                         servico.listarServicos(db, cnpj);
-                        servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
+                        tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         reserva.setIdCliente(cliente.getCpf());
                         reserva.setIdBarbearia(cnpj);
                         reserva.setDataReserva(dataHora);
                         reserva.setMetodoPagamento(pagamento);
-                        reserva.setIdServico(servicos);
+                        reserva.setIdServico(tipoServico);
+                        reserva.setHoraInicio(hora);
                         reserva.cadastrarReserva(db);
                         System.out.println("Reserva cadastrada");
                         break;
