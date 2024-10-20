@@ -85,7 +85,7 @@ public class MenuBarbearia {
                         data = Validador.converterData(scanner);
                         hora = Validador.converterHora(scanner);
                         while (Reserva.pesquisarReservaNoDia(db, data, barbearia.getCnpj(), hora)) {
-                            System.out.println("Data ou hora ocupada. Tente outra data.");
+                            System.out.println("Horário indisponível. Tente outro horário.");
                             data = Validador.converterData(scanner);
                             hora = Validador.converterHora(scanner);
                         }

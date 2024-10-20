@@ -79,11 +79,11 @@ public class MenuCliente {
                         data = Validador.converterData(scanner);
                         hora = Validador.converterHora(scanner);
                         while (Reserva.pesquisarReservaNoDia(db, data, cnpj, hora)) {
-                            System.out.println("Data ou hora ocupada. Tente outra data.");
+                            System.out.println("Horário indisponível. Tente outro horário.");
                             data = Validador.converterData(scanner);
                             hora = Validador.converterHora(scanner);
                         }
-                        System.out.println("Data e hora disponível para a reserva!");
+                        System.out.println("Data disponível para a reserva!");
                         pagamento = Validador.obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
                         servico.listarServicos(db, cnpj);
                         tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
