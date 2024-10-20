@@ -80,7 +80,6 @@ public class MenuCliente {
                         hora = Validador.converterHora(scanner);
                         while (Reserva.pesquisarReservaNoDia(db, data, cnpj, hora)) {
                             System.out.println("Horário indisponível. Tente outro horário.");
-                            data = Validador.converterData(scanner);
                             hora = Validador.converterHora(scanner);
                         }
                         System.out.println("Data disponível para a reserva!");
