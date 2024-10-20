@@ -32,7 +32,7 @@ public class MenuCliente {
     public void exibirMenu() throws SQLException {
 
         String nome, email, senha, telefone, cnpj, pagamento, tipoServico, cpf, confirma;
-        Date dataHora;
+        Date data;
         LocalTime hora;
         int opcao, id;
 
@@ -76,11 +76,11 @@ public class MenuCliente {
                         System.out.println("Opção 2 selecionada: Nova reserva");
                         barbearia.listarBarbearias(db);
                         cnpj = Validador.obterEntradaValida(scanner, "Digite o CNPJ da barbearia: ");
-                        dataHora = Validador.converterData(scanner);
+                        data = Validador.converterData(scanner);
                         hora = Validador.converterHora(scanner);
-                        while (Reserva.pesquisarReservaNoDia(db, dataHora, cnpj, hora)) {
+                        while (Reserva.pesquisarReservaNoDia(db, data, cnpj, hora)) {
                             System.out.println("Data ou hora ocupada. Tente outra data.");
-                            dataHora = Validador.converterData(scanner);
+                            data = Validador.converterData(scanner);
                             hora = Validador.converterHora(scanner);
                         }
                         System.out.println("Data e hora disponível para a reserva!");
@@ -89,7 +89,7 @@ public class MenuCliente {
                         tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         reserva.setIdCliente(cliente.getCpf());
                         reserva.setIdBarbearia(cnpj);
-                        reserva.setDataReserva(dataHora);
+                        reserva.setDataReserva(data);
                         reserva.setMetodoPagamento(pagamento);
                         reserva.setIdServico(tipoServico);
                         reserva.setHoraInicio(hora);

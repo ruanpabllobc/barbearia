@@ -32,7 +32,7 @@ public class MenuBarbearia {
     public void exibirMenu() throws SQLException {
         String cnpj, cpf, nome, email, senha, endereco, pagamento, servicos, confirma;
         float valor;
-        Date dataHora;
+        Date data;
         LocalTime hora;
         int opcao, id;
 
@@ -82,11 +82,11 @@ public class MenuBarbearia {
                         System.out.println("Opção 2 selecionada: Nova reserva");
                         cliente.listarClientes(db);
                         cpf = Validador.obterEntradaNumericaValida(scanner, "Digite o CPF do cliente: ");
-                        dataHora = Validador.converterData(scanner);
+                        data = Validador.converterData(scanner);
                         hora = Validador.converterHora(scanner);
-                        while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj(), hora)) {
+                        while (Reserva.pesquisarReservaNoDia(db, data, barbearia.getCnpj(), hora)) {
                             System.out.println("Data ou hora ocupada. Tente outra data.");
-                            dataHora = Validador.converterData(scanner);
+                            data = Validador.converterData(scanner);
                             hora = Validador.converterHora(scanner);
                         }
                         System.out.println("Data disponível para a reserva!");
@@ -95,7 +95,7 @@ public class MenuBarbearia {
                         servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         cliente.setCpf(cpf);
                         reserva.setIdCliente(cliente.getCpf());
-                        reserva.setDataReserva(dataHora);
+                        reserva.setDataReserva(data);
                         reserva.setMetodoPagamento(pagamento);
                         reserva.setIdBarbearia(barbearia.getCnpj());
                         reserva.setIdServico(servicos);
@@ -107,11 +107,11 @@ public class MenuBarbearia {
                         cpf = Validador.obterEntradaNumericaValida(scanner, "Digite o CPF do cliente: ");
                         reserva.listarReservas(db, cpf);
                         id = Validador.obterIntValido(scanner, "Digite o ID da reserva: ");
-                        dataHora = Validador.converterData(scanner);
+                        data = Validador.converterData(scanner);
                         hora = Validador.converterHora(scanner);
-                        while (Reserva.pesquisarReservaNoDia(db, dataHora, barbearia.getCnpj(), hora)) {
+                        while (Reserva.pesquisarReservaNoDia(db, data, barbearia.getCnpj(), hora)) {
                             System.out.println("Data ou hora ocupada. Tente outra data.");
-                            dataHora = Validador.converterData(scanner);
+                            data = Validador.converterData(scanner);
                             hora = Validador.converterHora(scanner);
                         }
                         System.out.println("Data e hora disponível para a reserva!");
@@ -119,7 +119,7 @@ public class MenuBarbearia {
                         servico.listarServicos(db, barbearia.getCnpj());
                         servicos = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                         reserva.setIdCliente(cpf);
-                        reserva.setDataReserva(dataHora);
+                        reserva.setDataReserva(data);
                         reserva.setMetodoPagamento(pagamento);
                         reserva.setIdBarbearia(barbearia.getCnpj());
                         reserva.setIdServico(servicos);
