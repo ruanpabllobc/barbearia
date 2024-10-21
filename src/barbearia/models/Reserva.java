@@ -91,6 +91,9 @@ public class Reserva {
             setIdBarbearia(rs.getString("barbearia"));
             setIdServico(rs.getString("nome_servico"));
             setIdCliente(rs.getString("cliente"));
+            String horast = rs.getString("hora_inicio");
+            LocalTime time = LocalTime.parse(horast); // Usa parse() em vez de valueOf()
+            setHoraInicio(time);
             System.out.println(toString());
         }
     }
@@ -98,8 +101,8 @@ public class Reserva {
     // Método para editar uma reserva existente
     public void editarReserva(Banco db) {
         String query = String.format(
-                "UPDATE Reserva SET nome_servico = '%s', data_reserva = '%s', metodo_pagamento = '%s', barbearia = '%s', cliente = '%s' WHERE id_reserva = %d",
-                getIdServico(), getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getId());
+                "UPDATE Reserva SET nome_servico = '%s', data_reserva = '%s', metodo_pagamento = '%s', barbearia = '%s', cliente = '%s', hora_inicio = '%s' WHERE id_reserva = %d" ,
+                getIdServico(), getDataReserva(), getMetodoPagamento(), getIdBarbearia(), getIdCliente(), getHoraInicio(), getId());
         db.queryUpdate(query);
     }
 
