@@ -114,8 +114,7 @@ public class MenuBarbearia {
                                     "Método de pagamento [Pix] ou [Cartão]: ");
                             servico.listarServicos(db, barbearia.getCnpj());
                             tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
-                            cliente.setCpf(cpf);
-                            reserva.setIdCliente(cliente.getCpf());
+                            reserva.setIdCliente(cpf);
                             reserva.setDataReserva(data);
                             reserva.setMetodoPagamento(pagamento);
                             reserva.setIdBarbearia(barbearia.getCnpj());
@@ -159,8 +158,7 @@ public class MenuBarbearia {
                             pagamento = Validador.obterEntradaValida(scanner,"Método de pagamento [Pix] ou [Cartão]: ");
                             servico.listarServicos(db, barbearia.getCnpj());
                             tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
-                            cliente.setCpf(cpf);
-                            reserva.setIdCliente(cliente.getCpf());
+                            reserva.setIdCliente(cpf);
                             reserva.setDataReserva(data);
                             reserva.setMetodoPagamento(pagamento);
                             reserva.setIdBarbearia(barbearia.getCnpj());

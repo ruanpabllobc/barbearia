@@ -34,7 +34,9 @@ public class MenuCliente {
         String nome, email, senha, telefone, cnpj, pagamento, tipoServico, cpf, confirma;
         Date data;
         LocalTime hora;
-        int opcao, id;
+        int opcao, opcaoData, id;
+        boolean reservaConfirmada;
+
 
         cpf = Validador.obterEntradaValida(scanner, "Digite o seu CPF: ");
         cliente.setCpf(cpf);
@@ -76,24 +78,47 @@ public class MenuCliente {
                         System.out.println("Opção 2 selecionada: Nova reserva");
                         barbearia.listarBarbearias(db);
                         cnpj = Validador.obterEntradaValida(scanner, "Digite o CNPJ da barbearia: ");
-                        data = Validador.converterData(scanner);
-                        hora = Validador.converterHora(scanner);
-                        while (Reserva.pesquisarReservaNoDia(db, data, cnpj, hora)) {
-                            System.out.println("Horário indisponível. Tente outro horário.");
+                        reservaConfirmada = false; // Variável para controlar a confirmação da reserva
+                        while (!reservaConfirmada) {
+                            data = Validador.converterData(scanner);
                             hora = Validador.converterHora(scanner);
+
+                            opcaoData = 0;
+
+                            while (Reserva.pesquisarReservaNoDia(db, data, cnpj, hora)) {
+                                System.out
+                                        .println("Horário indisponível. Tente outro horário ou escolha uma nova data.");
+                                System.out
+                                        .println("Deseja alterar apenas o horário (1) ou escolher uma nova data (2)?");
+                                opcaoData = Validador.obterIntValido(scanner, "Digite a opção: ");
+                                if (opcaoData == 2) {
+                                    break;
+                                } else if (opcaoData == 1) {
+                                    hora = Validador.converterHora(scanner);
+                                } else {
+                                    System.out.println("Opção inválida!");
+                                }
+                            }
+
+                            if (opcaoData == 2) {
+                                continue; // Reinicia o loop principal para pedir nova data
+                            }
+
+                            System.out.println("Data e horário disponíveis para a reserva!");
+                            pagamento = Validador.obterEntradaValida(scanner,
+                                    "Método de pagamento [Pix] ou [Cartão]: ");
+                            servico.listarServicos(db, cnpj);
+                            tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
+                            reserva.setIdCliente(cliente.getCpf());
+                            reserva.setDataReserva(data);
+                            reserva.setMetodoPagamento(pagamento);
+                            reserva.setIdBarbearia(cnpj);
+                            reserva.setIdServico(tipoServico);
+                            reserva.setHoraInicio(hora);
+                            reserva.cadastrarReserva(db);
+                            System.out.println("Reserva cadastrada");
+                            reservaConfirmada = true; // Reserva foi confirmada
                         }
-                        System.out.println("Data disponível para a reserva!");
-                        pagamento = Validador.obterEntradaValida(scanner, "Método de pagamento [Pix] ou [Cartão]: ");
-                        servico.listarServicos(db, cnpj);
-                        tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
-                        reserva.setIdCliente(cliente.getCpf());
-                        reserva.setIdBarbearia(cnpj);
-                        reserva.setDataReserva(data);
-                        reserva.setMetodoPagamento(pagamento);
-                        reserva.setIdServico(tipoServico);
-                        reserva.setHoraInicio(hora);
-                        reserva.cadastrarReserva(db);
-                        System.out.println("Reserva cadastrada");
                         break;
                     case 3:
                         System.out.println("Opção 4 selecionada: Buscar reserva");
