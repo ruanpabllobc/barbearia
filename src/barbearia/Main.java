@@ -59,7 +59,7 @@ public class Main {
                     cnpj = Validador.obterCNPJValido(scanner);
                     nome = Validador.obterEntradaValida(scanner, "Digite seu nome: ");
                     senha = Validador.obterSenhaValida(scanner);
-                    anoAbertura = Validador.obterIntValido(scanner, "Digite o Digite o ano de abertura: ");
+                    anoAbertura = Validador.obterIntValido(scanner, "Digite o ano de abertura: ");
                     endereco = Validador.obterEntradaValida(scanner, "Digite seu endereço: ");
                     email = Validador.obterEntradaValida(scanner, "Digite o email: ");
                     barbearia.setCnpj(cnpj);

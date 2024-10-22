@@ -138,8 +138,10 @@ public class MenuBarbearia {
                             opcaoData = 0;
 
                             while (Reserva.pesquisarReservaNoDia(db, data, barbearia.getCnpj(), hora)) {
-                                System.out.println("Horário indisponível. Tente outro horário ou escolha uma nova data.");
-                                System.out.println("Deseja alterar apenas o horário (1) ou escolher uma nova data (2)?");
+                                System.out
+                                        .println("Horário indisponível. Tente outro horário ou escolha uma nova data.");
+                                System.out
+                                        .println("Deseja alterar apenas o horário (1) ou escolher uma nova data (2)?");
                                 opcaoData = Validador.obterIntValido(scanner, "Digite a opção: ");
                                 if (opcaoData == 2) {
                                     break;
@@ -155,7 +157,8 @@ public class MenuBarbearia {
                             }
 
                             System.out.println("Data e horário disponíveis para a reserva!");
-                            pagamento = Validador.obterEntradaValida(scanner,"Método de pagamento [Pix] ou [Cartão]: ");
+                            pagamento = Validador.obterEntradaValida(scanner,
+                                    "Método de pagamento [Pix] ou [Cartão]: ");
                             servico.listarServicos(db, barbearia.getCnpj());
                             tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
                             reserva.setIdCliente(cpf);
@@ -199,7 +202,18 @@ public class MenuBarbearia {
                     case 8:
                         System.out.println("Opção 8 selecionada: Atualizar serviços");
                         servico.listarServicos(db, cnpj);
-                        tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
+                        boolean servicoEncontrado = false;
+                        tipoServico = null;
+                        // Loop até que um serviço válido seja encontrado
+                        while (!servicoEncontrado) {
+                            tipoServico = Validador.obterEntradaValida(scanner, "Digite o nome do serviço: ");
+                            try {
+                                servico.pesquisarServico(db, tipoServico, cnpj);
+                                servicoEncontrado = true; // Se o serviço foi encontrado, sai do loop
+                            } catch (SQLException e) {
+                                System.out.println("Erro ao pesquisar o serviço: " + e.getMessage());
+                            }
+                        }
                         nome = Validador.obterEntradaValida(scanner, "Digite o novo nome do serviço: ");
                         valor = Validador.obterFloatValido(scanner, "Digite o valor: ");
                         servico.setNomeServico(nome);

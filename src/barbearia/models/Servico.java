@@ -21,18 +21,23 @@ public class Servico {
 
     // Método para cadastrar um novo serviço no banco de dados
     public void cadastrarServico(Banco db) {
-        String query = String.format("INSERT INTO Servico (nome_servico, valor_servico, barbearia) VALUES ('%s', '%.2f', '%s')", getNomeServico(), getValorServico(), getIdBarbearia());
+        String query = String.format(
+                "INSERT INTO Servico (nome_servico, valor_servico, barbearia) VALUES ('%s', '%.2f', '%s')",
+                getNomeServico(), getValorServico(), getIdBarbearia());
         db.queryUpdate(query);
     }
 
     public void pesquisarServico(Banco db, String nomeServico, String cnpj) throws SQLException {
-        String query = String.format("SELECT * FROM Servico WHERE nome_servico = '%s' and barbearia = '%s'", nomeServico, cnpj);
+        String query = String.format("SELECT * FROM Servico WHERE nome_servico = '%s' and barbearia = '%s'",
+                nomeServico, cnpj);
         ResultSet rs = db.querySearch(query);
-        // Atualiza os valores do serviço encontrado
-        setNomeServico(rs.getString("nome_servico"));
-        setValorServico(rs.getFloat("valor_servico"));
-        setIdBarbearia(rs.getString("barbearia"));
-        System.out.println(toString());
+        if (rs.next()) {
+            setNomeServico(rs.getString("nome_servico"));
+            setValorServico(rs.getFloat("valor_servico"));
+            setIdBarbearia(rs.getString("barbearia"));
+        } else {
+            throw new SQLException("Serviço não encontrado.");
+        }
     }
 
     // Método para listar todos os serviços de uma barbearia específica
@@ -56,13 +61,15 @@ public class Servico {
 
     // Método para editar um serviço existente
     public void editarServico(Banco db, String cnpj, String nomeServico) {
-        String query = String.format("UPDATE Servico SET nome_servico = '%s', valor_servico = '%.2f' WHERE nome_servico = '%s' and barbearia = '%s'", getNomeServico(), getValorServico(), nomeServico, cnpj);
+        String query = String.format("UPDATE Servico SET nome_servico = '%s', valor_servico = '%.2f' WHERE nome_servico = '%s' and barbearia = '%s'",
+                getNomeServico(), getValorServico(), nomeServico, cnpj);
         db.queryUpdate(query);
     }
 
     // Método para remover um serviço, verificando se pertence à barbearia
     public void removerServico(Banco db, String cnpj) {
-        String query = String.format("DELETE FROM Servico WHERE nome_servico = '%s' AND barbearia = '%s'", getNomeServico(), cnpj);
+        String query = String.format("DELETE FROM Servico WHERE nome_servico = '%s' AND barbearia = '%s'",
+                getNomeServico(), cnpj);
         db.queryUpdate(query);
     }
 
@@ -92,6 +99,7 @@ public class Servico {
 
     @Override
     public String toString() {
-        return "Servico [nomeServico=" + nomeServico + ", valorServico=" + valorServico + ", idBarbearia=" + idBarbearia + "]";
+        return "Servico [nomeServico=" + nomeServico + ", valorServico=" + valorServico + ", idBarbearia=" + idBarbearia
+                + "]";
     }
 }
